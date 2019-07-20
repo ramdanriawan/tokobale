@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 19, 2019 at 05:05 PM
+-- Generation Time: Jul 20, 2019 at 09:07 AM
 -- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.3
+-- PHP Version: 7.3.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -181,7 +181,13 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`id_order`, `kodepelanggan`, `tgl_order`, `alamat_pengirim`, `id_kota`, `status_order`, `status_konfirmasi`, `status_terima`, `kurir_id`, `resi`, `ongkir`) VALUES
 (4, 12, '2019-07-02', 'jl.melati', 3, 'Belum Dibayar', 'Disetujui', 'Diterima', 1, '1234543214568', NULL),
 (5, 12, '2019-07-02', 'jln.buntu', 4, 'Belum Dibayar', 'Disetujui', 'Diterima', 2, '123456784562789', NULL),
-(6, 12, '2019-07-05', 'thehok', 3, 'Belum Dibayar', 'Disetujui', 'Diterima', 4, '1234565432178', NULL);
+(6, 12, '2019-07-05', 'thehok', 3, 'Belum Dibayar', 'Disetujui', 'Diterima', 4, '1234565432178', NULL),
+(9, 12, '2019-07-19', 'serah', 4, 'Belum Dibayar', 'Menunggu Konfirmasi', 'Belum Diterima', 2, NULL, 148000),
+(10, 12, '2019-07-19', 'serah', 4, 'Belum Dibayar', 'Menunggu Konfirmasi', 'Belum Diterima', 2, NULL, 148000),
+(11, 12, '2019-07-19', 'serah', 4, 'Belum Dibayar', 'Menunggu Konfirmasi', 'Belum Diterima', 1, NULL, 148000),
+(12, 12, '2019-07-19', 'serah', 4, 'Belum Dibayar', 'Menunggu Konfirmasi', 'Belum Diterima', 1, NULL, 148000),
+(13, 12, '2019-07-20', 'serah', 4, 'Belum Dibayar', 'Menunggu Konfirmasi', 'Belum Diterima', 1, NULL, 74000),
+(14, 12, '2019-07-20', 'serah', 4, 'Belum Dibayar', 'Menunggu Konfirmasi', 'Belum Diterima', 2, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -204,11 +210,7 @@ CREATE TABLE `orders_temp` (
 --
 
 INSERT INTO `orders_temp` (`id_order_temp`, `kodepelanggan`, `kodeproduk`, `jumlah`, `size`, `tgl_order`, `stok`) VALUES
-(9, 15, 20, 2, NULL, '2019-07-17', 0),
-(13, 12, 20, 1, 'M', '2019-07-17', 0),
-(14, 12, 20, 4, 'S', '2019-07-17', 0),
-(15, 12, 33, 5, '23', '2019-07-17', 0),
-(16, 12, 33, 1, '22', '2019-07-18', 0);
+(9, 15, 20, 2, NULL, '2019-07-17', 0);
 
 -- --------------------------------------------------------
 
@@ -233,7 +235,26 @@ CREATE TABLE `order_detail` (
 INSERT INTO `order_detail` (`id_order_detail`, `id_order`, `kodeproduk`, `size`, `jumlah`, `harga_satuan`, `total`) VALUES
 (1, 4, 12, 'S', 3, 200000, 0),
 (2, 4, 13, 'L', 4, 100000, 0),
-(4, 5, 12, 'XL', 6, 200000, 0);
+(4, 5, 12, 'XL', 6, 200000, 0),
+(9, 9, 20, 'M', 1, 140000, 112000),
+(10, 9, 20, 'S', 4, 140000, 448000),
+(11, 9, 33, '23', 5, 125000, 625000),
+(12, 9, 33, '22', 1, 125000, 125000),
+(13, 10, 20, 'M', 1, 140000, 112000),
+(14, 10, 20, 'S', 4, 140000, 448000),
+(15, 10, 33, '23', 5, 125000, 625000),
+(16, 10, 33, '22', 1, 125000, 125000),
+(17, 11, 20, 'M', 1, 140000, 112000),
+(18, 11, 20, 'S', 4, 140000, 448000),
+(19, 11, 33, '23', 5, 125000, 625000),
+(20, 11, 33, '22', 1, 125000, 125000),
+(21, 12, 20, 'M', 1, 140000, 112000),
+(22, 12, 20, 'S', 4, 140000, 448000),
+(23, 12, 33, '23', 5, 125000, 625000),
+(24, 12, 33, '22', 1, 125000, 125000),
+(25, 13, 33, '22', 3, 125000, 375000),
+(26, 13, 33, '24', 6, 125000, 750000),
+(27, 0, 0, '', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -292,14 +313,14 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`kodeproduk`, `kd_subkategori`, `nama_produk`, `deskripsi`, `harga_produk`, `stok`, `berat`, `foto1`, `foto2`, `ukuran`, `diskon`, `tgl_masuk`) VALUES
-(20, 14, 'Celana Levis', 'Nyaman, Lembut																								', 140000, 4, 1, 'CLE1.jpg', '', 'S,M,L,XL', 20, '2019-07-09 00:00:00'),
-(21, 14, 'Celana Pendek Import', 'Nyaman, Lembut, dan keren', 125, 5, 1, 'CLO5.jpg', '', 'S,M,L,XL', 0, '2019-07-09 00:00:00'),
-(22, 10, 'Baju Kemeja Cowok', 'Baju kemeja anak cowok ini sangat nyaman digunakan bagi anak anak ', 90, 3, 1, 'BJCO6.jpg', '', 'S,M,L,XL', 0, '2019-07-09 00:00:00'),
-(30, 1, 'Topi kupluk', 'Nyaman', 85000, 2, 1, 'TP2.jpg', '', 'S,M,L,XL', 0, '2019-07-09 00:00:00'),
-(32, 8, 'Sepatu Cowok', 'Nyamana', 115000, 5, 1, 'CO6.jpg', '', '21,22,23,24', 0, '2019-07-10 00:00:00'),
-(33, 8, 'Sepatu Cowok', 'Nyaman', 125000, 6, 1, 'CO8.jpg', '', '21,22,23,24', 0, '2019-07-10 00:00:00'),
-(34, 12, 'Baju Atasan Cewek', 'Nyaman', 140000, 12, 1, 'BJCE1.jpg', '', 'S,M,L,XL', 20, '2019-07-10 00:00:00'),
-(37, 14, 'Celana Cowok', 'Nyaman', 150000, 6, 1, 'CLO1.jpg', '', 'S,M,L,XL', 0, '2019-07-10 00:00:00'),
+(20, 14, 'Celana Levis', 'Nyaman, Lembut																								', 140000, 4, 0.8, 'CLE1.jpg', '', 'S,M,L,XL', 20, '2019-07-09 00:00:00'),
+(21, 14, 'Celana Pendek Import', 'Nyaman, Lembut, dan keren', 125, 5, 0.8, 'CLO5.jpg', '', 'S,M,L,XL', 0, '2019-07-09 00:00:00'),
+(22, 10, 'Baju Kemeja Cowok', 'Baju kemeja anak cowok ini sangat nyaman digunakan bagi anak anak ', 90, 3, 0.8, 'BJCO6.jpg', '', 'S,M,L,XL', 0, '2019-07-09 00:00:00'),
+(30, 1, 'Topi kupluk', 'Nyaman', 85000, 2, 0.8, 'TP2.jpg', '', 'S,M,L,XL', 0, '2019-07-09 00:00:00'),
+(32, 8, 'Sepatu Cowok', 'Nyamana', 115000, 5, 0.8, 'CO6.jpg', '', '21,22,23,24', 0, '2019-07-10 00:00:00'),
+(33, 8, 'Sepatu Cowok', 'Nyaman', 125000, 6, 0.8, 'CO8.jpg', '', '21,22,23,24', 0, '2019-07-10 00:00:00'),
+(34, 12, 'Baju Atasan Cewek', 'Nyaman', 140000, 12, 0.8, 'BJCE1.jpg', '', 'S,M,L,XL', 20, '2019-07-10 00:00:00'),
+(37, 14, 'Celana Cowok', 'Nyaman', 150000, 6, 0.8, 'CLO1.jpg', '', 'S,M,L,XL', 0, '2019-07-10 00:00:00'),
 (38, 1, 'Baju Tidur Anak Perempuan', 'sdfcgvhbjnkml', 345678, 6, 0.8, 'Baju2.jpg', '', 'S,M,L,XL', 0, '2019-07-10 00:00:00');
 
 -- --------------------------------------------------------
@@ -505,19 +526,19 @@ ALTER TABLE `kurirs`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `orders_temp`
 --
 ALTER TABLE `orders_temp`
-  MODIFY `id_order_temp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_order_temp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `id_order_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_order_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
