@@ -2,7 +2,7 @@
 
 
 <?php include "../_headerpenggunjung.php"; ?>
-
+<?php error_reporting(0) ?>
 
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 
@@ -57,74 +57,77 @@ table tr th {
                                     echo "<input type='hidden' name='orders[tgl_order]' value='" . date('Y-m-d') . "'/>";
 
 
-                                    $result = mysqli_query($conn, "SELECT * FROM orders_temp where kodepelanggan='$_COOKIE[id]'");
+                                    $resultOrdersTemp = mysqli_query($conn, "SELECT * FROM orders_temp where kodepelanggan='$_COOKIE[id]'");
 
                                     $total_semua_produk = 0;
                                     $total_bayar = 0;
                                     $total_berat = 0;
+                                    $total = 0;
+                                    $data_total = 0;
                                     $i = 0;
-                                    while ($orders_temp = mysqli_fetch_assoc($result))
+                                    while ($ordersTemp = mysqli_fetch_assoc($resultOrdersTemp))
                                     {
-                                        $result2 = mysqli_query($conn, "SELECT * FROM produk where kodeproduk='$orders_temp[kodeproduk]'");
+                                        $resultProduk = mysqli_query($conn, "SELECT * FROM produk where kodeproduk='$ordersTemp[kodeproduk]'");
 
-                                        $orders_temp2 = mysqli_fetch_assoc($result2);
-                                        $harga_produk = $orders_temp2['harga_produk'] - ($orders_temp2['harga_produk'] / 100 * $orders_temp2['diskon']);
+                                        $produks = mysqli_fetch_assoc($resultProduk);
+                                        $harga_produk = $produks['harga_produk'] - ($produks['harga_produk'] / 100 * $produks['diskon']);
 
-                                        $total = $harga_produk * $orders_temp["jumlah"];
+                                        $total += $harga_produk * $ordersTemp["jumlah"];
                                         $total_semua_produk += fromRupiah($total);
 
-                                        $total_berat += $orders_temp2['berat'];
+                                        $total_berat += $produks['berat'] * $ordersTemp["jumlah"];
 
                                         $harga_produk = toRupiah($harga_produk);
                                         $data_harga = fromRupiah($harga_produk);
                                         $totalRupiah = $total;
                                         $total = toRupiah($total);
-                                        $data_total = fromRupiah($total);
+                                        $data_total += fromRupiah($total);
                                         $total_semua_produk = toRupiah($total_semua_produk);
 
 echo <<<EOD
-                                        <input type='hidden' name='produks[$i][kodeproduk]' value='$orders_temp[kodeproduk]'/>
-                                        <input type='hidden' name='produks[$i][size]' value='$orders_temp[size]'/>
-                                        <input type='hidden' name='produks[$i][harga_satuan]' value='$orders_temp2[harga_produk]'/>
+                                        <input type='hidden' name='produks[$i][kodeproduk]' value='$ordersTemp[kodeproduk]'/>
+                                        <input type='hidden' name='produks[$i][size]' value='$ordersTemp[size]'/>
+                                        <input type='hidden' name='produks[$i][harga_satuan]' value='$produks[harga_produk]'/>
                                         <input type='hidden' name='produks[$i][total]' value='$totalRupiah' class='totalRupiah'/>
                                         <tr data-total-berat='$total_berat'>
-                                        <td><img src="../../images/$orders_temp2[foto1]" class="img-orders"></td>
-                                        <td><strong>$orders_temp2[nama_produk]</strong><p>Size : $orders_temp[size] <br> $orders_temp2[berat]KG</p></td>
+                                        <td><img src="../../images/$produks[foto1]" class="img-orders"></td>
+                                        <td class='beratProduk'><strong>$produks[nama_produk]</strong><p>Size : $ordersTemp[size] <br> <span class='beratProduk'>$produks[berat]</span>KG</p></td>
                                         <td>
-                                        <input required class="jumlah form-control" type="number" name='produks[$i][jumlah]' value="$orders_temp[jumlah]" min='1' data-index-jumlah="$i" max='$orders_temp2[stok]'>
-                                        <a href="./destroyOrderTemp.php?id=$orders_temp[id_order_temp]" class="btn btn-primary" onclick='return confirm("Yakin akan hapus produk ini dari keranjang?");'><i class="fa fa-trash-o"></i></a>
+                                        <input required class="jumlah form-control" type="number" name='produks[$i][jumlah]' value="$ordersTemp[jumlah]" min='1' data-index-jumlah="$i" max='$produks[stok]'>
+                                        <a href="./destroyOrderTemp.php?id=$ordersTemp[id_order_temp]" class="btn btn-primary" onclick='return confirm("Yakin akan hapus produk ini dari keranjang?");'><i class="fa fa-trash-o"></i></a>
                                         </td>
                                         <td class='harga_produk' data-harga='$data_harga'>$harga_produk</td>
-                                        <td data-index-total="$i" class='total'><span class='spanTotal'>$total</span> (Diskon: $orders_temp2[diskon]%)</td>
+                                        <td data-index-total="$i" class='total'><span class='spanTotal'>$total</span> (Diskon: $produks[diskon]%)</td>
                                         </tr>
 EOD;
                                     $i++;
                                     }
-
                                     ?>
 
+                                    </tbody>
 
-                                    <tr>
-                                        <td colspan="6">&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="4" class="text-right">Total Product</td>
-                                        <td class="totalProduct"><?php echo $total_semua_produk; ?></td>
-                                    </tr>
-                                    <tr>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="6">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-right">Total Product</td>
+                                            <td class="totalProduct"><?php echo toRupiah($data_total); ?></td>
+                                        </tr>
+                                        <tr>
 
                                         <?php 
-                                        $result3 = mysqli_query($conn, "SELECT * FROM pelanggan where kodepelanggan='$_COOKIE[id]'");
-                                        $orders_temp3 = mysqli_fetch_assoc($result3);
+                                        $resultPelanggan = mysqli_query($conn, "SELECT * FROM pelanggan where kodepelanggan='$_COOKIE[id]'");
+                                        $pelanggans = mysqli_fetch_assoc($resultPelanggan);
 
-                                        $result4 = mysqli_query($conn, "SELECT * FROM kota where id_kota='$orders_temp3[id_kota]'");
-                                        $orders_temp4 = mysqli_fetch_assoc($result4);
+                                        $resultKotaPelanggan = mysqli_query($conn, "SELECT * FROM kota where id_kota='$pelanggans[id_kota]'");
+                                        $kotaPelanggan = mysqli_fetch_assoc($resultKotaPelanggan);
 
                                         ?>
 
                                         <td colspan="4" class="text-right">Alamat</td>
                                         <td>
-                                            <textarea required class="form-control" cols="2" name="orders[alamat_pengirim]"><?php echo $orders_temp3['alamat'] ?></textarea>
+                                            <textarea required class="form-control" cols="2" name="orders[alamat_pengirim]"><?php echo $pelanggans['alamat'] ?></textarea>
                                         </td>
                                     </tr>
 
@@ -132,26 +135,26 @@ EOD;
                                         <td colspan="4" class="text-right">Total Shipping</td>
                                         <td>
                                             <!-- select kota -->
-                                            <select required name="orders[id_kota]" id="id_kota" data-ongkir-default='<?php echo $orders_temp4["ongkir"] ?>'>
+                                            <select required name="orders[id_kota]" id="id_kota" data-ongkir-default='<?php echo $kotaPelanggan["ongkir"] ?>'>
                                                 <option value="">--Pilih Kota--</option>
                                                 <?php 
 
 
-                                                $result5 = mysqli_query($conn, "SELECT * FROM kota");
+                                                $resultKota = mysqli_query($conn, "SELECT * FROM kota");
                                                 ?>
 
 
 
-                                                <?php while ($orders_temp5 = mysqli_fetch_assoc($result5))
+                                                <?php while ($kotas = mysqli_fetch_assoc($resultKota))
                                                 {
-                                                    $selected = $orders_temp5['id_kota'] == $orders_temp3['id_kota'] ? "selected": "";
+                                                    $selected = $kotas['id_kota'] == $pelanggans['id_kota'] ? "selected": "";
 
                                                     if ( $selected = 'selected')
                                                     {
-                                                        $total_shipping_fee = $orders_temp5[ongkir];
+                                                        $total_shipping_fee = $kotas['ongkir'];
                                                     }
 
-                                                    echo "<option value='$orders_temp5[id_kota]' $selected class='form-control input-sm' data-ongkir='$orders_temp5[ongkir]'>$orders_temp5[nama_kota] (ongkir: " . toRupiah($orders_temp5[ongkir]) . ")</option>";
+                                                    echo "<option value='$kotas[id_kota]' $selected class='form-control input-sm' data-ongkir='$kotas[ongkir]'>$kotas[nama_kota] (ongkir: " . toRupiah($kotas['ongkir']) . ")</option>";
                                                 } ?>
                                             </select>
 
@@ -159,16 +162,16 @@ EOD;
                                             <select name="orders[kurir_id]" required>
                                                 <option value="">- Pilih Kurir -</option>
                                                 <?php 
-                                                $result7 = mysqli_query($conn, "SELECT * FROM kurirs");
-                                                while ($rows = mysqli_fetch_assoc($result7)) {
-                                                    echo '<option value="'.$rows['kurir_id'].'">'.$rows['kurir'].'</option>';
+                                                $resultKurir = mysqli_query($conn, "SELECT * FROM kurirs");
+                                                while ($kurirs = mysqli_fetch_assoc($resultKurir)) {
+                                                    echo '<option value="'.$kurirs['kurir_id'].'">'.$kurirs['kurir'].'</option>';
                                                 } ?>
                                             </select>
                                             <span>x </span>
-                                            <span id="shippingCount"><?php echo $total_berat; ?></span>
-                                            <span>(Dibulatkan: <?php echo ceil($total_berat); ?>)</span>
+                                            <span id="shippingCount"><?php echo $total_berat; ?></span> KG 
+                                            <span>(Dibulatkan: <span id='diBulatkan'><?php echo ceil($total_berat); ?></span>) KG</span>
                                             <span>=</span>
-                                            <input type="hidden" name="orders[ongkir]" value="<?php echo $total_shipping_fee * $total_berat; ?>" class="ongkir" >
+                                            <input type="hidden" name="orders[ongkir]" value="<?php echo $total_shipping_fee * ceil($total_berat); ?>" class="ongkir" >
                                             <span id="totalShippingCount"><?php echo toRupiah($total_shipping_fee * ceil($total_berat)); ?></span>
 
 
@@ -178,15 +181,12 @@ EOD;
                                         <td colspan="4" class="text-right"><strong>Total Bayar</strong></td>
                                         <td><?php 
 
-                                        $result6 = mysqli_query($conn, "SELECT * FROM kota where id_kota=$orders_temp3[id_kota]");
-                                        $orders_temp6 = mysqli_fetch_assoc($result6);
+                                        $total_bayar = $data_total === 0 ? 0 : toRupiah(fromRupiah($data_total)  + ($total_shipping_fee * ceil($total_berat)));
 
-                                        $total_bayar = $total_semua_produk === 0 ? 0 : toRupiah(fromRupiah($total_semua_produk) + $orders_temp6['ongkir']);
-
-                                        echo "<span id='total_bayar' data-total-bayar-default='$total_semua_produk'>$total_bayar</span>";
+                                        echo "<span id='total_bayar' data-total-bayar-default='$data_total'>$total_bayar</span>";
 
                                         ?></td>
-                                    </tbody>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -204,17 +204,17 @@ EOD;
                     if (isset($_POST["checkout"])) 
                     {
                     //ambil data dari orders
-                        // $rmysqli_query($conn, "SELECT * FROM kota WHERE id_kota=$orders_temp3[id_kota]");
+                        // $rmysqli_query($conn, "SELECT * FROM kota WHERE id_kota=$pelanggans[id_kota]");
                         // mysqli_fetch_assoc()
                         $tggl_order = date('Y-m-d');
                         $alamat = $_POST['alamat_pengirim'];
-                        $kota = $_POST['id_kota'];
+                        $kotaPelanggan = $_POST['id_kota'];
                         $kurir= $_POST['kurir_id'];
 
                         //menyimpan data ke tabel orders
                         mysqli_query($conn, "INSERT INTO orders (id_order,kodepelanggan, tgl_order, alamat_pengirim, id_kota, status_order, status_konfirmasi, status_terima, kurir_id, resi)
                             VALUES 
-                            ('',$_COOKIE[id], '$tggl_order', 'alamat', '$kota','Belum Dibayar','Menunggu Konfirmasi', 'Belum Diterima', '$kurir', '')");
+                            ('',$_COOKIE[id], '$tggl_order', 'alamat', '$kotaPelanggan','Belum Dibayar','Menunggu Konfirmasi', 'Belum Diterima', '$kurir', '')");
                        echo mysqli_error($_POST); 
 
                     }
@@ -254,13 +254,17 @@ EOD;
 
                 $('.totalProduct').text(toRupiah(totalProduct));
 
-                var totalShippingCount = (parseInt($('select#id_kota option:selected').data('ongkir')) * parseInt(Math.ceil($('#shippingCount').text())));
+                var totalShippingCount = (
+                    parseInt($('select#id_kota option:selected').data('ongkir')) * 
+                    parseInt(Math.ceil($('#shippingCount').text()))
+                    );
 
-                $('#total_bayar').text(toRupiah(totalProduct + totalShippingCount));
 
                 $('.ongkir').val(totalShippingCount);
-                
+
                 $('#totalShippingCount').text(toRupiah(totalShippingCount));
+                
+                $('#total_bayar').text(toRupiah(totalProduct + totalShippingCount));
             }
 
             $('#id_kota').on('change', function(){
@@ -270,9 +274,23 @@ EOD;
             $(document).on('keyup', '.jumlah', function(e){
                 var rowHarga = $(`.table tbody tr:eq(${$(this).data('index-jumlah')}) td.harga_produk`);
                 var rowTotal = $(`.table tbody tr:eq(${$(this).data('index-jumlah')}) td.total span.spanTotal`);
+                var rowBerat = $(`.table tbody tr:eq(${$(this).data('index-jumlah')}) td.beratProduk span.beratProduk`);
+
+                var totalBerat = 0;
+                for (var i = 0; i < $(".table tbody tr").length; i++) 
+                {
+                     totalBerat += parseFloat($(`.table tbody tr:eq(${i}) td.beratProduk span.beratProduk`).text()) * 
+                        parseFloat($(`.jumlah:eq(${i})`).val());
+                     ;
+
+                }
+
+                $('#shippingCount').text(totalBerat.toFixed(3));
+                $('#diBulatkan').text(Math.ceil(totalBerat.toFixed(3)));
 
                 var total = parseInt(rowHarga.data('harga')) * parseInt($(this).val())
                 rowTotal.text(toRupiah(total));
+
                 $(".totalRupiah").eq($(this).data('index-jumlah')).val(total);
 
                 totalBayar();
