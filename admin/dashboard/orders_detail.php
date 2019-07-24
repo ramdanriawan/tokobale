@@ -35,7 +35,7 @@ $detail = mysqli_fetch_assoc($ambil);
 						<th>Size</th>
 						<th>Jumlah</th>
 						<th>Harga Satuan</th>
-						<th>Total</th>
+						<th>Total - Diskon</th>
 					</tr>
 				</thead>
 
@@ -49,9 +49,9 @@ $detail = mysqli_fetch_assoc($ambil);
 							<td><?= $result['nama_produk'];?></td>
 							<td><?= $result['size'];?></td>
 							<td><?= $result['jumlah'];?></td>
-							<td><?= $result['harga_satuan'];?></td>
+							<td><?= toRupiah($result['harga_satuan']); ?> (Diskon: <?= $result['diskon']; ?>%)</td>
 							<td>
-								<?= $result['harga_satuan']*$result['jumlah']; ?>
+								<?= toRupiah($result['harga_satuan'] * $result['jumlah'] - ($result['harga_satuan'] * $result['jumlah'] * ($result['diskon'] / 100))); ?>
 							</td>
 
 						</tr>

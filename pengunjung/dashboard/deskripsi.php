@@ -11,8 +11,6 @@ if(isset($_COOKIE['konfirmasiLogin']))
 
 <?php 
 
-require 'functions.php';
-
 $kodeproduk = $_GET['kodeproduk'];
 
 $result = mysqli_query($conn, "SELECT * FROM produk WHERE kodeproduk=$kodeproduk");
@@ -52,22 +50,13 @@ $ambil = mysqli_fetch_assoc($result);
 			<div class="container-fliud">
 				<div class="wrapper1 row">
 					<div class="preview col-md-5">
-						<!-- 
-						<div class="preview-pic tab-content" ">
-							<div class="tab-pane active" id="pic-1" ><img src="../../images/<?php echo $ambil["foto1"]; ?>"/></div>
-							<div class="tab-pane" id="pic-2"><img src="h../../images/<?php echo $ambil["foto2"]; ?>" /></div>
-							<script src="../.js/jquery.zoomtoo.js"></script>
-							<script>
-								$(function() {
-									$("#picture-frame").zoomToo({
-										magnify: 1
-									});
-								});
-							</script>
-						</div> -->
+						
+						<div class="preview-pic tab-content">
+							
+						</div>
 						<div class="preview-pic tab-content">
 						  <div class="tab-pane active" id="foto1"><img src="../../images/<?php echo $ambil["foto1"]; ?>" /></div>
-						  <div class="tab-pane" id="foto2"><img src="./../images/<?php echo $ambil["foto2"]; ?>" /></div>
+						  <div class="tab-pane" id="foto2"><img src="../../images/<?php echo $ambil["foto2"]; ?>" /></div>
 						</div>
 					
 						<ul class="preview-thumbnail nav nav-tabs">

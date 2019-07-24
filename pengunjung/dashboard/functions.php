@@ -108,30 +108,38 @@ function getKeys($request)
 	return "(" . implode(array_keys($request), ',') . ")";
 }
 
-function getQueryInsert($request, $table)
+function getQueryInsert($table, $request)
 {
 	return "INSERT INTO $table " . getKeys($request) . " VALUES " . makeMultiValues($request);
 }
 
-function getQueryUpdate($request, $table, $where)
-{
-	return "UPDATE $table " . getKeys($request) . " VALUES " . makeMultiValues($request) . " where $where";
-}
-
-function insert($request, $table) 
+function insert($table, $request) 
 {
 	global $conn;
 	
-	mysqli_query($conn, getQueryInsert($request, $table));
+	mysqli_query($conn, getQueryInsert($table, $request));
 
 	return mysqli_insert_id($conn);
 }
 
-function update($request, $table, $where)
+function getQueryUpdate($table, $request, $where)
+{
+	$string = "";
+	foreach ($request as $key => $value)
+	{
+		$string .= " $key='$value', ";
+	}
+
+	$string = substr($string, 0, strlen($string) - 2);
+	
+	return "UPDATE $table set $string where $where";
+}
+
+function update($table, $request, $where)
 {
 	global $conn;
 	
-	mysqli_query($conn, getQueryUpdate($request, $table, $where));
+	mysqli_query($conn, getQueryUpdate($table, $request, $where));
 
 	return mysqli_affected_rows($conn);
 }

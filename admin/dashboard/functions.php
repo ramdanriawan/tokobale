@@ -1,5 +1,5 @@
 <?php 
-error_reporting(0);
+error_reporting();
 
 //htmlspecialchars = untuk menonaktifkan tag html 
 //strtolower = agar huruf pertama tetap kecil
@@ -805,12 +805,156 @@ function caripelanggan($keyword)
 }
 
 
+####################
 //edited by ramdan
 function toRupiah($number)
 {
-	return "Rp" . number_format($number, 2, ',', '.');
+	if ( is_numeric($number) )
+	{
+
+		return "Rp" . number_format($number, 0, ',', '.');
+	}
 }
 
+function fromRupiah($rupiah)
+{
+	return (int) str_replace('Rp', '', str_replace('.', '', $rupiah));
+}
+
+
+function makeQuotes($value)
+{
+	return "'$value'";
+}
+
+function makeMultiValues($request)
+{
+
+	//cek ika array multidimensi
+	if (isset($request[0]))
+	{
+		foreach ($request as $key => $value)
+		{
+			$value = array_map('makeQuotes', $value);
+
+			$data[] = "(" . implode($value, ',') . ")";		
+		}
+
+		return implode($data, ',');
+	}
+
+	$request = array_map('makeQuotes', $request);
+
+	return "(" . implode($request, ',') . ")";	
+}
+
+function getKeys($request)
+{
+	//cek jika array multidimensi
+	if (isset($request[0]))
+	{
+		return "(" . implode(array_keys($request[0]), ',') . ")";
+	}
+
+	return "(" . implode(array_keys($request), ',') . ")";
+}
+
+function getQueryInsert($table, $request)
+{
+	return "INSERT INTO $table " . getKeys($request) . " VALUES " . makeMultiValues($request);
+}
+
+function insert($table, $request) 
+{
+	global $conn;
+	
+	mysqli_query($conn, getQueryInsert($request, $table));
+
+	return mysqli_insert_id($conn);
+}
+
+function getQueryUpdate($table, $request, $where)
+{
+	$string = "";
+	foreach ($request as $key => $value)
+	{
+		$string .= " $key='$value', ";
+	}
+
+	$string = substr($string, 0, strlen($string) - 2);
+	
+	return "UPDATE $table set $string where $where";
+}
+
+function update($table, $request, $where)
+{
+	global $conn;
+	
+	mysqli_query($conn, getQueryUpdate($table, $request, $where));
+
+	return mysqli_affected_rows($conn);
+}
+
+function delete($table, $where)
+{
+	global $conn;
+	mysqli_query($conn, "DELETE FROM $table WHERE $where");
+
+	return mysqli_affected_rows($conn);	
+}
+
+function get($table)
+{
+	global $conn;
+	$sqlTable = mysqli_query($conn, "SELECT * FROM $table");
+
+	while ($rows = mysqli_fetch_assoc($sqlTable))
+	{
+		$data[] = $rows;
+	}
+
+	return $data;
+}
+
+function getWhere($table, $where)
+{
+	global $conn;
+	$sqlTable = mysqli_query($conn, "SELECT * FROM $table where $where");
+
+	while ($rows = mysqli_fetch_assoc($sqlTable))
+	{
+		$data[] = $rows;
+	}
+
+	return $data;
+}
+
+function select($columns, $table)
+{
+	global $conn;
+	$sqlTable = mysqli_query($conn, "SELECT $columns FROM $table");
+
+	while ($rows = mysqli_fetch_assoc($sqlTable))
+	{
+		$data[] = $rows;
+	}
+
+	return $data;
+}
+
+function selectWhere($columns, $table, $where)
+{
+	global $conn;
+	$sqlTable = mysqli_query($conn, "SELECT $columns FROM $table WHERE $where");
+
+	while ($rows = mysqli_fetch_assoc($sqlTable))
+	{
+		$data[] = $rows;
+	}
+
+	return $data;
+}
+####################
 
 ?>
 

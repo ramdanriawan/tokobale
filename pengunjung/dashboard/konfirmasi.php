@@ -139,9 +139,7 @@ if (isset($_POST["submit"]) )
 	mysqli_query($conn, "INSERT INTO konfirmasi(id_konfirmasi, id_order, kodepelanggan, kode_bank, nama_penggirim, rek_pengirim, tgl_konfirmasi, bukti_transfer)
 		VALUES ('', '$idorder', '$idorderbeli', '$kdbank', '$nmpeng', '$rekpengirim','$tanggal','$namafile')");
 
-	mysqli_query($conn, "UPDATE orders SET 
-	status_order='Sudah Dibayar'
-	WHERE id_order= $idorder");
+	update('orders', ['status_konfirmasi' => 'Menunggu Persetujuan'], "id_order='$idorder'");
 
 	echo "<script>alert ('Terima Kasih Anda telah Melakukan Konfirmasi');</script>";
 	echo "<script>location='./pembelian.php';</script>";

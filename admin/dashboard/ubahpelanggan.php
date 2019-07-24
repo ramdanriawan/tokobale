@@ -1,7 +1,6 @@
 <?php include_once('../_header.php'); ?>
 
 <?php 
-
 require 'functions.php';
 
 $kdplgn = $_GET["kodepelanggan"];
@@ -16,18 +15,11 @@ $pecah2 = mysqli_fetch_assoc($ambil2);
 
 if (isset($_POST["submit"])) 
 {
+	unset($_POST['kodepelanggan'], $_POST["submit"]);
 	
-	if (ubahpelanggan($_POST) > 0) 
-	{
-		echo "
-		<script>
-		alert('Data Pelanggan Telah diubah!');
-		document.location.href = 'pelanggan.php?halaman=pelanggan';
-		</script>
-		";
+	update("pelanggan", $_POST, "kodepelanggan=$kdplgn");
 
-	}
-	else
+	if (mysqli_errno()) 
 	{
 
 		echo mysqli_error($conn); die;  
@@ -38,6 +30,13 @@ if (isset($_POST["submit"]))
 		</script>
 		";
 	}
+
+		echo "
+		<script>
+		alert('Data Pelanggan Telah diubah!');
+		document.location.href = 'pelanggan.php?halaman=pelanggan';
+		</script>
+		";
 }
 ?>
 
@@ -77,7 +76,7 @@ if (isset($_POST["submit"]))
 
 		<!-- select kota -->
 		<label>Kota</label>
-		<select name="kota" id="kota" class="form-control"  data-namakota-default='<?php echo $pecah2["nama_kota"] ?>'>
+		<select name="id_kota" id="kota" class="form-control"  data-namakota-default='<?php echo $pecah2["nama_kota"] ?>'>
 			<option value="">--Pilih Kota--</option>
 			<?php 
 

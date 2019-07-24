@@ -109,21 +109,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav ">
 
-							<li class=" active"><a href="../dashboard/index.php" class="hyper "><span>Home</span></a></li>
+							<li class="<?php echo strpos($_SERVER['REQUEST_URI'], 'index.php') > 1 ? "active": ""; ?>"><a href="../dashboard/index.php" class="hyper "><span>Home</span></a></li>
 
-							<li><a href="../dashboard/contactus.php" class="hyper"><span>Contact Us</span></a></li>
+							<li class="<?php echo strpos($_SERVER['REQUEST_URI'], 'contactus.php') > 1 ? "active": ""; ?>"><a href="../dashboard/contactus.php" class="hyper"><span>Contact Us</span></a></li>
 
-							<li><a href="../dashboard/produk.php" class="hyper"> <span>Produk</span></a></li>
+							<li class="<?php echo strpos($_SERVER['REQUEST_URI'], 'produk.php') > 1 ? "active": ""; ?>"><a href="../dashboard/produk.php" class="hyper"> <span>Produk</span></a></li>
 
-							<li><a href="../dashboard/caraorder.php" class="hyper"> <span>Cara Order</span></a></li>
+							<li class="<?php echo strpos($_SERVER['REQUEST_URI'], 'caraorder.php') > 1 ? "active": ""; ?>"><a href="../dashboard/caraorder.php" class="hyper"> <span>Cara Order</span></a></li>
 
 							<!-- jika ada sudah login maka ada session pelanggan -->
 							<?php if (isset($_COOKIE['namapelanggan'])):  ?>
-								<li><a href="../dashboard/pembelian.php" class="hyper"> <span>Pembelian</span></a></li>
+								<li class="<?php echo strpos($_SERVER['REQUEST_URI'], 'pembelian.php') > 1 ? "active": ""; ?>"><a href="../dashboard/pembelian.php" class="hyper"> <span>Pembelian</span></a></li>
 							<!-- jika belum login tidak session pelanggan -->
-							<li><a href="../dashboard/setting.php" class="hyper"><span>Setting</span></a></li>
+							<li class="<?php echo strpos($_SERVER['REQUEST_URI'], 'setting.php') > 1 ? "active": ""; ?>"><a href="../dashboard/setting.php" class="hyper"><span>Setting</span></a></li>
 
-							<li><a href="../dashboard/logout.php" class="hyper"><span>Logout</span></a></li>
+							<li class="<?php echo strpos($_SERVER['REQUEST_URI'], 'logout.php') > 1 ? "active": ""; ?>"><a href="../dashboard/logout.php" class="hyper"><span>Logout</span></a></li>
 							<?php else: ?>
 						<?php endif ?>
 							
@@ -136,9 +136,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 			<!-- pencarian -->
 			<div>
-				<form action="" method="post">
+				<form action="pencarian.php" method="get">
 					<div style=" float: left; display: block; margin-top: 5px; float: right; ">
-						<input type="text" name="keyword" size="30" placeholder="Pencarian">
+						<input type="text" name="keyword" size="30" placeholder="Pencarian" value="<?php echo $_GET['keyword'] ?? "" ?>">
 						<button type="button" class="btn btn-warning" name="cari" >
 							<span class="glyphicon glyphicon-search" ></span>
 						</button>

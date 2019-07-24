@@ -3,16 +3,16 @@
 <?php 
 include 'functions.php';
 // print_r($_POST); die();
-if ($orderInsertId = insert($_POST['orders'], 'orders') )
+if ($orderInsertId = insert('orders', $_POST['orders']) )
 {
 	foreach ($_POST['produks'] as $key => $value)
 	{
 		$_POST['produks'][$key]['id_order'] = $orderInsertId;
 	}
 
-	if ( insert($_POST['produks'], 'order_detail') )
+	if ( insert('order_detail', $_POST['produks']) )
 	{
-		delete("kodepelanggan=" . $_POST['orders']['kodepelanggan'], 'orders_temp');
+		delete('orders_temp', "kodepelanggan=" . $_POST['orders']['kodepelanggan']);
 
 		header("Location: ./pembelian.php");
 	}

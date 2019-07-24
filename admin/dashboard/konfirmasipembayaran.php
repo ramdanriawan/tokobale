@@ -100,7 +100,7 @@ $konfirmasi = konfirmasi("SELECT * FROM konfirmasi JOIN orders ON
 								<td style="color: black"><?php echo $knfrms['tgl_konfirmasi']; ?></td>
 								<td style="color: black"><img src="../../buktipembayaran/<?= $knfrms["bukti_transfer"] ; ?>" width="100"></td>
 								<td style="color: black;">
-									<?php if($knfrms["status_konfirmasi"] == "Menunggu Konfirmasi"): ?>
+									<?php if($knfrms["status_konfirmasi"] == "Menunggu Persetujuan"): ?>
 									<a href="./order_ubah_konfirmasi.php?id_order=<?= $knfrms['id_order'] ?>"class="btn btn-info" onclick="return confirm('setujui konfirmasi dari <?php echo $knfrms['namapelanggan']; ?>')">
 										<span class="glyphicon glyphicon-ok">Setujui</span>
 									</a>

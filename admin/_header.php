@@ -94,43 +94,43 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </a>
             </li>
             <li class="sub-menu">
-                <a href="#">
+                <a href="#" class="<?php echo isset($_GET['halaman']) && $_GET['halaman'] != "orders" && $_GET['halaman'] != "konfirmasipembayaran" ? "active" : "";  ?>">
                     <i class="fa fa-th"></i>
                     <span>Data Master</span>
                 </a>
                 <ul class="sub">
                
-                    <li><a href="../dashboard/produk.php?halaman=produk">Data Produk</a></li>
-                    <li><a href="../dashboard/kota.php?halaman=kota">Data Kota</a></li>
-                    <li><a href="../dashboard/kategori.php?halaman=kategori">Data Kategori</a></li>
-                    <li><a href="../dashboard/bank.php?halaman=bank">Data Bank</a></li>
-                    <li><a href="../dashboard/kurir.php?halaman=kurir">Data Kurir</a></li>
+                    <li class="<?php echo $_GET['halaman'] == "produk" ? "active" : ""; ?>"><a href="../dashboard/produk.php?halaman=produk">Data Produk</a></li>
+                    <li class="<?php echo $_GET['halaman'] == "kota" ? "active" : ""; ?>"><a href="../dashboard/kota.php?halaman=kota">Data Kota</a></li>
+                    <li class="<?php echo $_GET['halaman'] == "kategori" ? "active" : ""; ?>"><a href="../dashboard/kategori.php?halaman=kategori">Data Kategori</a></li>
+                    <li class="<?php echo $_GET['halaman'] == "bank" ? "active" : ""; ?>"><a href="../dashboard/bank.php?halaman=bank">Data Bank</a></li>
+                    <li class="<?php echo $_GET['halaman'] == "kurir" ? "active" : ""; ?>"><a href="../dashboard/kurir.php?halaman=kurir">Data Kurir</a></li>
          
           
              <!-- jika ada sudah login dengan level admin-->
                   <?php if ($_COOKIE['level'] == "admin"):  ?>
-                    <li><a href="../dashboard/pelanggan.php?halaman=pelanggan">Data Pelanggan</a></li>
-                    <li><a href="../dashboard/admin.php?halaman=admin">Data Users</a></li>
+                    <li class="<?php echo $_GET['halaman'] == "pelanggan" ? "active" : ""; ?>"><a href="../dashboard/pelanggan.php?halaman=pelanggan">Data Pelanggan</a></li>
+                    <li class="<?php echo $_GET['halaman'] == "admin" ? "active" : ""; ?>"><a href="../dashboard/admin.php?halaman=admin">Data Users</a></li>
 
                 </ul>
             </li>
 
-            <li>
+            <li class="<?php echo $_GET['halaman'] == "orders" ? "active" : ""; ?>">
                 <a href="../dashboard/orders.php?halaman=orders">
                     <i class="fa fa-bullhorn"></i>
                     <span>Pemesanan </span>
                 </a>
             </li>
 
-            <li>
+            <li class="<?php echo $_GET['halaman'] == "konfirmasipembayaran" ? "active" : ""; ?>">
                 <a href="../dashboard/konfirmasipembayaran.php?halaman=konfirmasipembayaran">
                     <i class="fa fa-bullhorn"></i>
                     <span>Konfirmasi Pembayaran </span>
                 </a>
             </li>
 
-             <li>
-                <a href="../dashboard/konfirmasipembayaran.php?halaman=konfirmasipembayaran">
+             <li  class="<?php echo $_GET['halaman'] == "laporan" ? "active" : ""; ?>">
+                <a href="../dashboard/laporan.php">
                     <i class="fa fa-bullhorn"></i>
                     <span>Laporan </span>
                 </a>
