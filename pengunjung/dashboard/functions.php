@@ -46,6 +46,14 @@ function registrasi($dtplgn)
 
 	return mysqli_affected_rows($conn);
 }
+function hapuskonfirmasi($idorder)
+{
+	global $conn;
+
+	mysqli_query($conn, "DELETE FROM orders WHERE id_order = $idorder");
+
+	return mysqli_affected_rows($conn);
+}
 
 ####################
 //edited by ramdan

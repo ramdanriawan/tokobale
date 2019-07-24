@@ -51,7 +51,7 @@ $admin = admin("SELECT * FROM admin LIMIT $awalData, $jumlahdataperhalaman");
       	margin-bottom:  20px;
         border-top: 1px solid black;"></div>
 
-	<div style="margin: 5px; padding:5px 10px 5px 10px; border: 1px solid black; background-color: white;">
+	<div style="margin: 10px; padding:5px 10px 5px 10px; border: 1px solid black; background-color: white;">
 	<form action="" method="post">
 		<div style=" float: left; display: block; margin-top: 5px;">
 			<input type="text" name="keyword" size="30" placeholder="Pencarian">
@@ -61,10 +61,16 @@ $admin = admin("SELECT * FROM admin LIMIT $awalData, $jumlahdataperhalaman");
 		</div>
 	</form>
 
-	<div style=" float: right; display: block;padding-top: 5px">
+	
+	
+	
+
+	<div style=" float: right; display: block;padding-top: 2px;">
 		<a href="tambahadmin.php?halaman=tambahadmin" class="btn btn-primary"> 
 			<span class="glyphicon glyphicon-plus btn-end"></span> Tambah Data </a>
-		</div><br><br>
+		</div>
+
+	 <a href="./index.php" class="btn btn-success" style="margin-left: 10px;margin-top: 5px;"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Kembali</a>
 
 		<div >
 			<div class="table-responsive" style="padding-top: 5px">

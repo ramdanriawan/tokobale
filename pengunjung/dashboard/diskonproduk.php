@@ -1,8 +1,7 @@
 <?php include_once('../_headerpenggunjung.php'); ?>
 
 <?php 
- 
-require 'functions.php';
+
 
 
 ?>

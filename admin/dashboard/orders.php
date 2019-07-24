@@ -59,10 +59,12 @@ $orders = orders("SELECT * FROM orders JOIN pelanggan ON
 				</div>
 			</form>
 
-			<div style=" float: right; display: block;padding-top: 5px">
+			<!-- <div style=" float: right; display: block;padding-top: 5px">
 				<a href="tambahorder.php?halaman=tambahorder" class="btn btn-primary"> 
 					<span class="glyphicon glyphicon-plus btn-end"></span> Tambah Data </a>
-				</div><br><br>
+				</div> -->
+
+			 <a href="./index.php" class="btn btn-success" style="margin-left: 10px;margin-top: 5px;"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Kembali</a>
 
 				<div>
 					<div class="table-responsive" style="padding-top: 5px">
@@ -100,10 +102,10 @@ $orders = orders("SELECT * FROM orders JOIN pelanggan ON
 									<td style="color: black"><?php echo $ords['kurir']; ?></td>
 									<td style="color: black"><?php echo $ords['resi']; ?></td>
 									<td style="color: black">
-											<a href="index.php?halaman=hapusorder&id_order=<?php echo $ords['id_order'] ?>" class="btn-danger btn" onclick= "return confirm('apakah data order no= <?php echo $ords['id_order']; ?> ingin dihapus?')">
-											<span class="glyphicon glyphicon-trash">Hapus</span></a><br><br>
-											<a href="ubahorder.php?halaman=ubahorder&id_order=<?php echo $ords['id_order'] ?>" class="btn btn-warning">
-												<span class="glyphicon glyphicon-pencil">Ubah</span></a><br><br>
+											<!-- <a href="index.php?halaman=hapusorder&id_order=<?php echo $ords['id_order'] ?>" class="btn-danger btn" onclick= "return confirm('apakah data order no= <?php echo $ords['id_order']; ?> ingin dihapus?')">
+											<span class="glyphicon glyphicon-trash">Hapus</span></a><br><br> -->
+											<!-- <a href="ubahorder.php?halaman=ubahorder&id_order=<?php echo $ords['id_order'] ?>" class="btn btn-warning">
+												<span class="glyphicon glyphicon-pencil">Ubah</span></a><br><br> -->
 												<a href="orders_detail.php?halaman=orders_detail&id=<?php echo $ords['id_order']; ?>">
 													<span class="btn btn-info">Detail</span></a><br><br>
 												<a href="tambahnoresi.php?halaman=tambahnoresi&id_order=<?php echo $ords['id_order']; ?>">

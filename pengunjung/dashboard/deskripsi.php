@@ -1,11 +1,11 @@
 <?php 
-	if(isset($_COOKIE['konfirmasiLogin']))
-	{
-		echo "<script>alert('Kamu harus login untuk melakukan pembelian barang'); </script>";
+if(isset($_COOKIE['konfirmasiLogin']))
+{
+	echo "<script>alert('Kamu harus login untuk melakukan pembelian barang'); </script>";
 
-		setcookie('konfirmasiLogin', '0', time() - 1);
-	}
- ?>
+	setcookie('konfirmasiLogin', '0', time() - 1);
+}
+?>
 
 <?php include_once('../_headerpenggunjung.php'); ?>
 
@@ -50,14 +50,27 @@ $ambil = mysqli_fetch_assoc($result);
 			<div class="container-fliud">
 				<div class="wrapper1 row">
 					<div class="preview col-md-5">
-						
-						<div class="preview-pic tab-content">
-							<div class="tab-pane active" id="pic-1" ><img src="../../images/<?php echo $ambil["foto1"]; ?>" /></div>
+						<!-- 
+						<div class="preview-pic tab-content" ">
+							<div class="tab-pane active" id="pic-1" ><img src="../../images/<?php echo $ambil["foto1"]; ?>"/></div>
 							<div class="tab-pane" id="pic-2"><img src="h../../images/<?php echo $ambil["foto2"]; ?>" /></div>
+							<script src="../.js/jquery.zoomtoo.js"></script>
+							<script>
+								$(function() {
+									$("#picture-frame").zoomToo({
+										magnify: 1
+									});
+								});
+							</script>
+						</div> -->
+						<div class="preview-pic tab-content">
+						  <div class="tab-pane active" id="foto1"><img src="../../images/<?php echo $ambil["foto1"]; ?>" /></div>
+						  <div class="tab-pane" id="foto2"><img src="./../images/<?php echo $ambil["foto2"]; ?>" /></div>
 						</div>
+					
 						<ul class="preview-thumbnail nav nav-tabs">
-							<li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="../../images/<?php echo $ambil["foto1"]; ?>" /></a></li>
-							<li><a data-target="#pic-2" data-toggle="tab"><img src="../../images/<?php echo $ambil["foto2"]; ?>" /></a></li>
+							<li class="active"><a data-target="#foto1" data-toggle="tab"><img src="../../images/<?php echo $ambil["foto1"]; ?>" /></a></li>
+							<li ><a data-target="#foto2" data-toggle="tab"><img src="../../images/<?php echo $ambil["foto2"]; ?>" /></a></li>
 						</ul>
 						
 					</div>
@@ -77,17 +90,17 @@ $ambil = mysqli_fetch_assoc($result);
 
 							<span>
 								<?php
-									echo '<select name="size" required>';
+								echo '<select name="size" required>';
 
-									$sizes = explode(',', $ambil['ukuran']);
-										echo "<option value=''>--Pilih Size--</option>";
+								$sizes = explode(',', $ambil['ukuran']);
+								echo "<option value=''>--Pilih Size--</option>";
 
-									foreach ($sizes as $size) 
-									{
-										echo "<option value='{$size}'>$size</option>";
-									}
+								foreach ($sizes as $size) 
+								{
+									echo "<option value='{$size}'>$size</option>";
+								}
 
-									echo "</select>";
+								echo "</select>";
 
 								?>
 								
@@ -98,9 +111,9 @@ $ambil = mysqli_fetch_assoc($result);
 								<select name="jumlah" required>
 									<option value="" selected>--Jumlah--</option>
 									<?php for ($i=1; $i <= $ambil['stok']; $i++)
-										{ 
-											echo "<option value='$i'>$i</option>";
-										}
+									{ 
+										echo "<option value='$i'>$i</option>";
+									}
 									?>
 								</select>
 							</span><br><br>

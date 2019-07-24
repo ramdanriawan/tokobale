@@ -42,6 +42,15 @@ if (isset($_GET['halaman']))
 	}else if($_GET['halaman'] == "setting")
 	{
 		include 'setting.php';
+	}else if($_GET['halaman'] == "hapuskonfirmasi")
+	{
+		include 'hapuskonfirmasi.php';
+	}else if($_GET['halaman'] == "edit-account")
+	{
+		include 'edit-account.php';
+	}else if($_GET['halaman'] == "change-password")
+	{
+		include 'change-password.php';
 	}
 	
 	

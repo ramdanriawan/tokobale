@@ -4,18 +4,14 @@
         session_start(); 
     }
 
- if (!isset($_SESSION["login"]) )
- {
-     header("Location: login.php" );
-     exit;
- }
 ?>
-<?php include_once('../_headerpenggunjung.php'); ?>
+
+
+
 
 <?php 
 
-require 'functions.php';
-
+include_once('../_headerpenggunjung.php');
 
 
 if (isset($_POST["submit"]) ) 

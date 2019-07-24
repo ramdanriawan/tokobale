@@ -147,7 +147,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>
 			<!-- end -->
 
-
+			<?php if (isset($_COOKIE['namapelanggan'])):  ?>
 			<div class="cart" style="float: right;" >
 				<a href="./cart.php">
 				<span class="fa fa-shopping-cart my-cart-icon"><span class="badge badge-notify my-cart-badge">
@@ -166,6 +166,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</span></span>
 				</a>
 			</div>
+			<?php else: ?>
+		<?php endif ?>
 			<div class="clearfix"></div>
 		</div>
 

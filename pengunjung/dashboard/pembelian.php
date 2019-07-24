@@ -66,11 +66,17 @@ echo <<<EOD
 											<td>$kurir[kurir]</td>
 											<td>$pembelian[resi]</td>
 											<td>
-												<a href="konfirmasi.php?halaman=konfirmasi" class="btn-warning btn">
+											
+												<a href="konfirmasi.php?halaman=konfirmasi&id_order=
+												$pembelian[id_order]" class="btn-warning btn" value>
 													<span class="glyphicon glyphicon-pencil">Konfirmasi</span></a>
-													<a href="#" class="btn-danger btn">
+
+												<a href="hapuskonfirmasi.php?halaman=hapuskonfirmasi&id_order=
+												$pembelian[id_order]" class="btn-danger btn" onclick='return confirm("Yakin akan hapus order ini?");'>
 													<span class="glyphicon glyphicon-trash">Hapus</span></a>
+										
 											</td>
+											endif;
 										</tr>
 EOD;
 									}

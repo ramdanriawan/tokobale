@@ -51,7 +51,8 @@ $konfirmasi = konfirmasi("SELECT * FROM konfirmasi JOIN orders ON
 					<span class="glyphicon glyphicon-search" ></span>
 				</button>
 			</div>
-		</form><br><br>
+		</form>
+		 <a href="./index.php" class="btn btn-success" style="margin-left: 10px;margin-top: 5px;"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Kembali</a>
 
 				<div class="table-responsive" style="padding-top: 5px">
 					<table class="table table-bordered table-hover" id="dataTables-example">
@@ -99,7 +100,7 @@ $konfirmasi = konfirmasi("SELECT * FROM konfirmasi JOIN orders ON
 								<td style="color: black"><?php echo $knfrms['tgl_konfirmasi']; ?></td>
 								<td style="color: black"><img src="../../buktipembayaran/<?= $knfrms["bukti_transfer"] ; ?>" width="100"></td>
 								<td style="color: black;">
-									<?php if($knfrms["status_konfirmasi"] == "Menunggu Persetujuan"): ?>
+									<?php if($knfrms["status_konfirmasi"] == "Menunggu Konfirmasi"): ?>
 									<a href="./order_ubah_konfirmasi.php?id_order=<?= $knfrms['id_order'] ?>"class="btn btn-info" onclick="return confirm('setujui konfirmasi dari <?php echo $knfrms['namapelanggan']; ?>')">
 										<span class="glyphicon glyphicon-ok">Setujui</span>
 									</a>

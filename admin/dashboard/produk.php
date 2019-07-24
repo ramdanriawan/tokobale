@@ -53,7 +53,9 @@ $produk = produk("SELECT * FROM produk JOIN sub_kategori ON
 		<div style=" float: right; display: block;padding-top: 5px">
 			<a href="tambahproduk.php?halaman=tambahproduk" class="btn btn-primary"> 
 				<span class="glyphicon glyphicon-plus btn-end"></span> Tambah Data </a>
-			</div><br><br>
+			</div>
+
+		 <a href="./index.php" class="btn btn-success" style="margin-left: 10px;margin-top: 5px;"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Kembali</a>
 
 			<div >
 				<div class="table-responsive" style="padding-top: 5px">

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2019 at 09:07 AM
+-- Generation Time: Jul 24, 2019 at 12:37 PM
 -- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.4
+-- PHP Version: 7.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -103,7 +103,7 @@ CREATE TABLE `konfirmasi` (
   `nama_penggirim` varchar(50) NOT NULL,
   `rek_pengirim` varchar(50) NOT NULL,
   `tgl_konfirmasi` date NOT NULL,
-  `bukti_transfer` varchar(255) NOT NULL
+  `bukti_transfer` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -111,7 +111,7 @@ CREATE TABLE `konfirmasi` (
 --
 
 INSERT INTO `konfirmasi` (`id_konfirmasi`, `id_order`, `kodepelanggan`, `kode_bank`, `nama_penggirim`, `rek_pengirim`, `tgl_konfirmasi`, `bukti_transfer`) VALUES
-(4, 5, 5, 7, 'Yanti', '234567890', '2019-07-05', 'buktitransfer.jpg');
+(1, 1, 12, 7, 'febby', '0834567890', '2019-07-24', 'Baju2.jpg');
 
 -- --------------------------------------------------------
 
@@ -179,15 +179,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id_order`, `kodepelanggan`, `tgl_order`, `alamat_pengirim`, `id_kota`, `status_order`, `status_konfirmasi`, `status_terima`, `kurir_id`, `resi`, `ongkir`) VALUES
-(4, 12, '2019-07-02', 'jl.melati', 3, 'Belum Dibayar', 'Disetujui', 'Diterima', 1, '1234543214568', NULL),
-(5, 12, '2019-07-02', 'jln.buntu', 4, 'Belum Dibayar', 'Disetujui', 'Diterima', 2, '123456784562789', NULL),
-(6, 12, '2019-07-05', 'thehok', 3, 'Belum Dibayar', 'Disetujui', 'Diterima', 4, '1234565432178', NULL),
-(9, 12, '2019-07-19', 'serah', 4, 'Belum Dibayar', 'Menunggu Konfirmasi', 'Belum Diterima', 2, NULL, 148000),
-(10, 12, '2019-07-19', 'serah', 4, 'Belum Dibayar', 'Menunggu Konfirmasi', 'Belum Diterima', 2, NULL, 148000),
-(11, 12, '2019-07-19', 'serah', 4, 'Belum Dibayar', 'Menunggu Konfirmasi', 'Belum Diterima', 1, NULL, 148000),
-(12, 12, '2019-07-19', 'serah', 4, 'Belum Dibayar', 'Menunggu Konfirmasi', 'Belum Diterima', 1, NULL, 148000),
-(13, 12, '2019-07-20', 'serah', 4, 'Belum Dibayar', 'Menunggu Konfirmasi', 'Belum Diterima', 1, NULL, 74000),
-(14, 12, '2019-07-20', 'serah', 4, 'Belum Dibayar', 'Menunggu Konfirmasi', 'Belum Diterima', 2, NULL, 0);
+(1, 12, '2019-07-24', 'serah', 4, 'Sudah Dibayar', 'Menunggu Konfirmasi', 'Belum Diterima', 1, NULL, 29600);
 
 -- --------------------------------------------------------
 
@@ -204,13 +196,6 @@ CREATE TABLE `orders_temp` (
   `tgl_order` date NOT NULL,
   `stok` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `orders_temp`
---
-
-INSERT INTO `orders_temp` (`id_order_temp`, `kodepelanggan`, `kodeproduk`, `jumlah`, `size`, `tgl_order`, `stok`) VALUES
-(9, 15, 20, 2, NULL, '2019-07-17', 0);
 
 -- --------------------------------------------------------
 
@@ -233,28 +218,7 @@ CREATE TABLE `order_detail` (
 --
 
 INSERT INTO `order_detail` (`id_order_detail`, `id_order`, `kodeproduk`, `size`, `jumlah`, `harga_satuan`, `total`) VALUES
-(1, 4, 12, 'S', 3, 200000, 0),
-(2, 4, 13, 'L', 4, 100000, 0),
-(4, 5, 12, 'XL', 6, 200000, 0),
-(9, 9, 20, 'M', 1, 140000, 112000),
-(10, 9, 20, 'S', 4, 140000, 448000),
-(11, 9, 33, '23', 5, 125000, 625000),
-(12, 9, 33, '22', 1, 125000, 125000),
-(13, 10, 20, 'M', 1, 140000, 112000),
-(14, 10, 20, 'S', 4, 140000, 448000),
-(15, 10, 33, '23', 5, 125000, 625000),
-(16, 10, 33, '22', 1, 125000, 125000),
-(17, 11, 20, 'M', 1, 140000, 112000),
-(18, 11, 20, 'S', 4, 140000, 448000),
-(19, 11, 33, '23', 5, 125000, 625000),
-(20, 11, 33, '22', 1, 125000, 125000),
-(21, 12, 20, 'M', 1, 140000, 112000),
-(22, 12, 20, 'S', 4, 140000, 448000),
-(23, 12, 33, '23', 5, 125000, 625000),
-(24, 12, 33, '22', 1, 125000, 125000),
-(25, 13, 33, '22', 3, 125000, 375000),
-(26, 13, 33, '24', 6, 125000, 750000),
-(27, 0, 0, '', 0, 0, 0);
+(1, 1, 33, '21', 2, 125000, 250000);
 
 -- --------------------------------------------------------
 
@@ -282,10 +246,8 @@ CREATE TABLE `pelanggan` (
 --
 
 INSERT INTO `pelanggan` (`kodepelanggan`, `namapelanggan`, `jeniskelamin`, `tempatlahir`, `tgllahir`, `alamat`, `id_kota`, `nohp`, `email`, `username`, `password`, `tanggaldaftar`) VALUES
-(5, 'Yanti Tan', 'perempuan', 'jambi', '2019-04-01', 'thehok', 0, '081345231415', 'yanti@gmail.com', 'yanti', '12345', '2019-04-14'),
-(6, 'Yusuf', 'Laki-laki', 'maluku', '1997-11-02', 'muaro jambi', 0, '081232123422', 'yusuf123@gmail.com', 'yusuf', '9876', '2019-04-16'),
-(10, 'Chanyeol', 'laki-laki', 'Kuala Enok', '1995-10-10', 'thehok', 3, '081345231451', 'yeol@gmail.com', 'yeol', '$2y$10$vnZ7ADYmVJpp3', '2019-07-16'),
-(12, 'marijan', 'laki-laki', 'goa', '1990-12-02', 'serah', 1, '099999999999', 'ramdanriawan3@gmail.com', 'ramdanriawan3', '$2y$10$S1ceKWtuFLNLEAT0VlVgJORLXExvf.m77d7iy/GOYV9HxN2NpWOu.', '0090-09-09');
+(10, 'Chanyeol', 'laki-laki', 'Kuala Enok', '1995-10-10', 'thehok', 0, '081345231452', 'yeol@gmail.com', 'yeol', '$2y$10$vnZ7ADYmVJpp3', '2019-07-16'),
+(12, 'marijan', 'laki-laki', 'goa', '1990-12-02', 'serah', 3, '099999999999', 'ramdanriawan3@gmail.com', 'ramdanriawan3', '$2y$10$S1ceKWtuFLNLEAT0VlVgJORLXExvf.m77d7iy/GOYV9HxN2NpWOu.', '0090-09-09');
 
 -- --------------------------------------------------------
 
@@ -320,8 +282,9 @@ INSERT INTO `produk` (`kodeproduk`, `kd_subkategori`, `nama_produk`, `deskripsi`
 (32, 8, 'Sepatu Cowok', 'Nyamana', 115000, 5, 0.8, 'CO6.jpg', '', '21,22,23,24', 0, '2019-07-10 00:00:00'),
 (33, 8, 'Sepatu Cowok', 'Nyaman', 125000, 6, 0.8, 'CO8.jpg', '', '21,22,23,24', 0, '2019-07-10 00:00:00'),
 (34, 12, 'Baju Atasan Cewek', 'Nyaman', 140000, 12, 0.8, 'BJCE1.jpg', '', 'S,M,L,XL', 20, '2019-07-10 00:00:00'),
-(37, 14, 'Celana Cowok', 'Nyaman', 150000, 6, 0.8, 'CLO1.jpg', '', 'S,M,L,XL', 0, '2019-07-10 00:00:00'),
-(38, 1, 'Baju Tidur Anak Perempuan', 'sdfcgvhbjnkml', 345678, 6, 0.8, 'Baju2.jpg', '', 'S,M,L,XL', 0, '2019-07-10 00:00:00');
+(37, 14, 'Celana Cowok', 'Nyaman		', 150000, 6, 0.8, 'CLO1.jpg', 'CLO5.jpg', 'S,M,L,XL', 0, '0000-00-00 00:00:00'),
+(38, 1, 'Baju Tidur Anak Perempuan', 'sdfcgvhbjnkml', 345678, 6, 0.8, 'Baju2.jpg', '', 'S,M,L,XL', 0, '2019-07-10 00:00:00'),
+(39, 11, 'Baju Cowok', 'Bagus', 1200000, 3, 0.5, 'baju9.jpg', 'baju10.jpg', 'S,M,L,XL', 0, '2019-07-23 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -334,15 +297,6 @@ CREATE TABLE `resi` (
   `id_order` int(11) NOT NULL,
   `resi` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `resi`
---
-
-INSERT INTO `resi` (`resi_id`, `id_order`, `resi`) VALUES
-(2, 4, '1234543214568'),
-(3, 5, '123456784562789'),
-(4, 6, '1234565432178');
 
 -- --------------------------------------------------------
 
@@ -415,8 +369,7 @@ ALTER TABLE `kategori`
 ALTER TABLE `konfirmasi`
   ADD PRIMARY KEY (`id_konfirmasi`),
   ADD KEY `id_order` (`id_order`),
-  ADD KEY `kodepelanggan` (`kodepelanggan`),
-  ADD KEY `kode_bank` (`kode_bank`);
+  ADD KEY `kodepelanggan` (`kodepelanggan`);
 
 --
 -- Indexes for table `kota`
@@ -508,7 +461,7 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
-  MODIFY `id_konfirmasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_konfirmasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `kota`
@@ -526,19 +479,19 @@ ALTER TABLE `kurirs`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `orders_temp`
 --
 ALTER TABLE `orders_temp`
-  MODIFY `id_order_temp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_order_temp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `id_order_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_order_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
@@ -550,13 +503,13 @@ ALTER TABLE `pelanggan`
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `kodeproduk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `kodeproduk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `resi`
 --
 ALTER TABLE `resi`
-  MODIFY `resi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `resi_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sub_kategori`
@@ -579,8 +532,13 @@ ALTER TABLE `ulasan`
 --
 ALTER TABLE `konfirmasi`
   ADD CONSTRAINT `konfirmasi_ibfk_1` FOREIGN KEY (`id_order`) REFERENCES `orders` (`id_order`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `konfirmasi_ibfk_2` FOREIGN KEY (`kodepelanggan`) REFERENCES `pelanggan` (`kodepelanggan`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `konfirmasi_ibfk_3` FOREIGN KEY (`kode_bank`) REFERENCES `bank` (`kode_bank`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `konfirmasi_ibfk_2` FOREIGN KEY (`kodepelanggan`) REFERENCES `pelanggan` (`kodepelanggan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `order_detail`
+--
+ALTER TABLE `order_detail`
+  ADD CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`id_order`) REFERENCES `orders` (`id_order`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `resi`

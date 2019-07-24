@@ -29,17 +29,16 @@ require 'functions.php';
 		<h1> Selamat Datang </h1><br>
 		<p> Selamat datang di halaman Administrator. Silahkan klik menu pilihan yang berada di sebelah kiri
 		untuk mengelola konten website</p>
-	</div>
+	</div><br>
 
 	<!-- //market-->
-	<div class="market-updates">
 		<div class="col-md-3 market-update-gd">
-			<div class="market-update-block clr-block-2">
+			<div class="market-update-block clr-block-1">
 				<div class="col-md-4 market-update-right">
-					<i class="fa fa-eye"> </i>
+					<i class="fa fa-users" ></i>
 				</div>
 				<div class="col-md-8 market-update-left">
-					<a href="../dashboard/produk.php?halaman=produk">Produk</a>
+					<a href="../dashboard/pelanggan.php?halaman=pelanggan">Produk</a>
 					<h3><?php echo count(produk("SELECT * FROM produk")); ?></h3>
 				</div>
 				<div class="clearfix"> </div>
