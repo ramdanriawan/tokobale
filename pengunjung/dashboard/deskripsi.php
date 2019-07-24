@@ -11,6 +11,8 @@ if(isset($_COOKIE['konfirmasiLogin']))
 
 <?php 
 
+require 'functions.php';
+
 $kodeproduk = $_GET['kodeproduk'];
 
 $result = mysqli_query($conn, "SELECT * FROM produk WHERE kodeproduk=$kodeproduk");

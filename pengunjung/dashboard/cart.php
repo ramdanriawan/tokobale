@@ -159,10 +159,17 @@ EOD;
 
                                                     if ( $selected = 'selected')
                                                     {
+<<<<<<< HEAD
                                                         $total_shipping_fee = $orders_temp5['ongkir'];
                                                     }
 
                                                     echo "<option value='$orders_temp5[id_kota]' $selected class='form-control input-sm' data-ongkir='$orders_temp5[ongkir]'>$orders_temp5[nama_kota] (ongkir: " . toRupiah($orders_temp5['ongkir']) . ")</option>";
+=======
+                                                        $total_shipping_fee = $orders_temp5[ongkir];
+                                                    }
+
+                                                    echo "<option value='$orders_temp5[id_kota]' $selected class='form-control input-sm' data-ongkir='$orders_temp5[ongkir]'>$orders_temp5[nama_kota] (ongkir: " . toRupiah($orders_temp5[ongkir]) . ")</option>";
+>>>>>>> parent of c31d9ca... 2. perbaikan cart.php
                                                 } ?>
                                             </select>
 
@@ -172,7 +179,11 @@ EOD;
                                                 <?php 
                                                 $result7 = mysqli_query($conn, "SELECT * FROM kurirs");
                                                 while ($rows = mysqli_fetch_assoc($result7)) {
+<<<<<<< HEAD
                                                     echo "<option value='$rows[kurir_id]' data-ongkir='$rows[ongkir]'>$rows[kurir]</option>";
+=======
+                                                    echo '<option value="'.$rows['kurir_id'].'">'.$rows['kurir'].'</option>';
+>>>>>>> parent of c31d9ca... 2. perbaikan cart.php
                                                 } ?>
                                             </select>
                                             <span>x </span>
@@ -191,9 +202,15 @@ EOD;
 
                                         $result6 = mysqli_query($conn, "SELECT * FROM kota where id_kota=$orders_temp3[id_kota]");
                                         $orders_temp6 = mysqli_fetch_assoc($result6);
+<<<<<<< HEAD
 
                                         $total_bayar = $total_semua_produk === 0 ? 0 : toRupiah(fromRupiah($total_semua_produk) + $orders_temp6['ongkir']);
 
+=======
+
+                                        $total_bayar = $total_semua_produk === 0 ? 0 : toRupiah(fromRupiah($total_semua_produk) + $orders_temp6['ongkir']);
+
+>>>>>>> parent of c31d9ca... 2. perbaikan cart.php
                                         echo "<span id='total_bayar' data-total-bayar-default='$total_semua_produk'>$total_bayar</span>";
 
                                         ?></td>
@@ -209,6 +226,33 @@ EOD;
                         </button>
                   
 
+<<<<<<< HEAD
+=======
+                    <?php 
+
+
+                    if (isset($_POST["checkout"])) 
+                    {
+                    //ambil data dari orders
+                        // $rmysqli_query($conn, "SELECT * FROM kota WHERE id_kota=$orders_temp3[id_kota]");
+                        // mysqli_fetch_assoc()
+                        $tggl_order = date('Y-m-d');
+                        $alamat = $_POST['alamat_pengirim'];
+                        $kota = $_POST['id_kota'];
+                        $kurir= $_POST['kurir_id'];
+
+                        //menyimpan data ke tabel orders
+                        mysqli_query($conn, "INSERT INTO orders (id_order,kodepelanggan, tgl_order, alamat_pengirim, id_kota, status_order, status_konfirmasi, status_terima, kurir_id, resi)
+                            VALUES 
+                            ('',$_COOKIE[id], '$tggl_order', 'alamat', '$kota','Belum Dibayar','Menunggu Konfirmasi', 'Belum Diterima', '$kurir', '')");
+                       echo mysqli_error($_POST); 
+
+                    }
+
+
+
+                    ?>
+>>>>>>> parent of c31d9ca... 2. perbaikan cart.php
                 </div>
                 </form>
             </div>
@@ -258,6 +302,7 @@ EOD;
             $(document).on('keyup', '.jumlah', function(e){
                 var rowHarga = $(`.table tbody tr:eq(${$(this).data('index-jumlah')}) td.harga_produk`);
                 var rowTotal = $(`.table tbody tr:eq(${$(this).data('index-jumlah')}) td.total span.spanTotal`);
+<<<<<<< HEAD
 
                 var total = parseInt(
                         (rowHarga.data('harga')) * parseInt($(this).val())
@@ -267,6 +312,8 @@ EOD;
                 //         (rowHarga.data('harga')) * parseInt($(this).val()) + 
                 //         (parseInt($(this).val()) * parseInt($("#orderKurir option:selected").data('ongkir'))
                 //     );
+=======
+>>>>>>> parent of c31d9ca... 2. perbaikan cart.php
 
                 rowTotal.text(toRupiah(total));
                 $(".totalRupiah").eq($(this).data('index-jumlah')).val(total);

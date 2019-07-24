@@ -113,28 +113,30 @@ function getQueryInsert($request, $table)
 	return "INSERT INTO $table " . getKeys($request) . " VALUES " . makeMultiValues($request);
 }
 
+function getQueryUpdate($request, $table, $where)
+{
+	return "UPDATE $table " . getKeys($request) . " VALUES " . makeMultiValues($request) . " where $where";
+}
+
 function insert($request, $table) 
 {
 	global $conn;
 	
-	getQueryInsert($request, $table);
-
 	mysqli_query($conn, getQueryInsert($request, $table));
 
 	return mysqli_insert_id($conn);
 }
 
-// function getQueryUpdate($request, $table)
-// {
-// 	return "UPDATE $table " . getKeys($request) . " VALUES " . makeMultiValues($request);
-// }
+function update($request, $table, $where)
+{
+	global $conn;
+	
+	mysqli_query($conn, getQueryUpdate($request, $table, $where));
 
-// function update($request, $table)
-// {
+	return mysqli_affected_rows($conn);
+}
 
-// }
-
-function delete($where, $table)
+function delete($table, $where)
 {
 	global $conn;
 	mysqli_query($conn, "DELETE FROM $table WHERE $where");
