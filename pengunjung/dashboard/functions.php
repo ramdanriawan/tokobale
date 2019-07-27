@@ -151,5 +151,75 @@ function delete($table, $where)
 
 	return mysqli_affected_rows($conn);	
 }
+
+
+function get($table)
+{
+	global $conn;
+	$sqlTable = mysqli_query($conn, "SELECT * FROM $table");
+
+	while ($rows = mysqli_fetch_assoc($sqlTable))
+	{
+		$data[] = $rows;
+	}
+
+	return $data;
+}
+
+function getWhere($table, $where)
+{
+	global $conn;
+	$sqlTable = mysqli_query($conn, "SELECT * FROM $table where $where");
+
+	while ($rows = mysqli_fetch_assoc($sqlTable))
+	{
+		$data[] = $rows;
+	}
+
+	return $data;
+}
+
+function select($columns, $table)
+{
+	global $conn;
+	$sqlTable = mysqli_query($conn, "SELECT $columns FROM $table");
+
+	while ($rows = mysqli_fetch_assoc($sqlTable))
+	{
+		$data[] = $rows;
+	}
+
+	return $data;
+}
+
+function selectWhere($columns, $table, $where)
+{
+	global $conn;
+	$sqlTable = mysqli_query($conn, "SELECT $columns FROM $table WHERE $where");
+
+	while ($rows = mysqli_fetch_assoc($sqlTable))
+	{
+		$data[] = $rows;
+	}
+
+	return $data;
+}
+
+function decrement($table, $column, $decrement, $where)
+{
+	global $conn;
+	mysqli_query($conn, "UPDATE $table set $column = $column - $decrement WHERE $where");
+
+	return mysqli_affected_rows($conn);
+}
+
+function increment($table, $column, $decrement, $where)
+{
+	global $conn;
+	mysqli_query($conn, "UPDATE $table set $column = $column + $decrement WHERE $where");
+
+	return mysqli_affected_rows($conn);
+}
+
 ####################
 ?>

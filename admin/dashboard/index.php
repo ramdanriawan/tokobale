@@ -3,7 +3,7 @@
 
  session_start();
 
- if (!isset($_SESSION["login"]) )
+ if (!isset($_COOKIE["level"]) )
  {
      header("Location: login.php" );
      exit;

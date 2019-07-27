@@ -72,7 +72,7 @@ $konfirmasi = konfirmasi("SELECT * FROM konfirmasi JOIN orders ON
 
 						
 						<?php $i = 1; ?>
-						<?php foreach ($konfirmasi as $knfrms): ?>
+						<?php foreach (array_reverse($konfirmasi) as $knfrms): ?>
 							<tr class="baris">
 								<td style="color: black"><?php echo $i;?></td>
 
@@ -102,11 +102,11 @@ $konfirmasi = konfirmasi("SELECT * FROM konfirmasi JOIN orders ON
 								<td style="color: black;">
 									<?php if($knfrms["status_konfirmasi"] == "Menunggu Persetujuan"): ?>
 									<a href="./order_ubah_konfirmasi.php?id_order=<?= $knfrms['id_order'] ?>"class="btn btn-info" onclick="return confirm('setujui konfirmasi dari <?php echo $knfrms['namapelanggan']; ?>')">
-										<span class="glyphicon glyphicon-ok">Setujui</span>
+										<span class="glyphicon glyphicon-ok text-white" style="color:  white;">Setujui</span>
 									</a>
 									<?php elseif($knfrms["status_konfirmasi"] == "Disetujui"): ?>
-									<button class="btn btn-info disabled">
-										<span class="glyphicon glyphicon-ok">Disetujui</span>
+									<button class="btn btn-default disabled">
+										<span class="glyphicon glyphicon-ok text-white">Disetujui</span>
 									</button>
 									<?php endif; ?>	
 									</td>

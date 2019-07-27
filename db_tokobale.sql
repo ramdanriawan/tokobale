@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2019 at 01:19 AM
+-- Generation Time: Jul 27, 2019 at 07:33 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.4
 
@@ -117,7 +117,9 @@ INSERT INTO `konfirmasi` (`id_konfirmasi`, `id_order`, `kodepelanggan`, `kode_ba
 (4, 3, 12, 7, 'sadada', 'sdfsf', '2019-07-24', 'Screenshot (3).png'),
 (5, 3, 12, 7, 'budiatmo', '773273737', '2019-07-24', 'Screenshot (2).png'),
 (6, 3, 12, 7, 'fjhhj', '32456', '2019-07-24', 'test foto identitas.png'),
-(7, 4, 12, 7, '12345678', '197652342312', '2019-07-24', 'Screenshot (3).png');
+(7, 4, 12, 7, '12345678', '197652342312', '2019-07-24', 'Screenshot (3).png'),
+(8, 5, 12, 7, 'marijan', '082282692489', '2019-07-26', 'Screenshot (2).png'),
+(9, 6, 12, 7, 'gak jelas', '234234234', '2019-07-26', 'test foto identitas.png');
 
 -- --------------------------------------------------------
 
@@ -188,7 +190,9 @@ INSERT INTO `orders` (`id_order`, `kodepelanggan`, `tgl_order`, `alamat_pengirim
 (1, 12, '2019-07-24', 'serah', 4, 'Belum Dibayar', 'Disetujui', 'Sudah Diterima', 1, NULL, 29600),
 (2, 12, '2019-07-23', 'serah', 4, 'Sudah Dibayar', 'Disetujui', 'Sudah Diterima', 1, '33445566778899', 333000),
 (3, 12, '2019-07-24', 'serah', 4, 'Sudah Dibayar', 'Disetujui', 'Sudah Diterima', 1, NULL, 222000),
-(4, 12, '2019-07-24', 'serah', 4, 'Sudah Dibayar', 'Disetujui', 'Sudah Diterima', 1, '34343443', 148000);
+(4, 12, '2019-07-24', 'serah', 4, 'Sudah Dibayar', 'Disetujui', 'Sudah Diterima', 1, '34343443', 148000),
+(5, 12, '2019-07-26', 'serah', 4, 'Sudah Dibayar', 'Disetujui', 'Sudah Diterima', 1, NULL, 111000),
+(6, 12, '2019-07-26', 'serah', 4, 'Sudah Dibayar', 'Disetujui', 'Belum Diterima', 2, NULL, 74000);
 
 -- --------------------------------------------------------
 
@@ -233,7 +237,10 @@ INSERT INTO `order_detail` (`id_order_detail`, `id_order`, `kodeproduk`, `size`,
 (4, 3, 32, '21', 2, 115000, 184000),
 (5, 3, 32, '22', 5, 115000, 460000),
 (6, 4, 20, 'S', 2, 140000, 224000),
-(7, 4, 22, 'S', 3, 90, 270);
+(7, 4, 22, 'S', 3, 90, 270),
+(8, 5, 39, 'M', 3, 1200000, 3600000),
+(9, 5, 39, 'XL', 3, 1200000, 3600000),
+(10, 6, 20, 'S', 2, 140000, 224000);
 
 -- --------------------------------------------------------
 
@@ -290,16 +297,16 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`kodeproduk`, `kd_subkategori`, `nama_produk`, `deskripsi`, `harga_produk`, `stok`, `berat`, `foto1`, `foto2`, `ukuran`, `diskon`, `tgl_masuk`) VALUES
-(20, 14, 'Celana Levis', 'Nyaman, Lembut																								', 140000, 4, 0.8, 'CLE1.jpg', '', 'S,M,L,XL', 20, '2019-07-09 00:00:00'),
+(20, 14, 'Celana Levis', 'Nyaman, Lembut																								', 140000, 11, 0.8, 'CLE1.jpg', '', 'S,M,L,XL', 20, '2019-07-09 00:00:00'),
 (21, 14, 'Celana Pendek Import', 'Nyaman, Lembut, dan keren', 125, 5, 0.8, 'CLO5.jpg', '', 'S,M,L,XL', 0, '2019-07-09 00:00:00'),
-(22, 10, 'Baju Kemeja Cowok', 'Baju kemeja anak cowok ini sangat nyaman digunakan bagi anak anak ', 90, 3, 0.8, 'BJCO6.jpg', '', 'S,M,L,XL', 0, '2019-07-09 00:00:00'),
+(22, 10, 'Baju Kemeja Cowok', 'Baju kemeja anak cowok ini sangat nyaman digunakan bagi anak anak ', 90, 0, 0.8, 'BJCO6.jpg', '', 'S,M,L,XL', 0, '2019-07-09 00:00:00'),
 (30, 1, 'Topi kupluk', 'Nyaman', 85000, 2, 0.8, 'TP2.jpg', '', 'S,M,L,XL', 0, '2019-07-09 00:00:00'),
-(32, 8, 'Sepatu Cowok', 'Nyamana', 115000, 5, 0.8, 'CO6.jpg', '', '21,22,23,24', 20, '2019-07-10 00:00:00'),
-(33, 8, 'Sepatu Cowok', 'Nyaman', 125000, 6, 0.8, 'CO8.jpg', '', '21,22,23,24', 0, '2019-07-10 00:00:00'),
-(34, 12, 'Baju Atasan Cewek', 'Nyaman', 140000, 12, 0.8, 'BJCE1.jpg', '', 'S,M,L,XL', 20, '2019-07-10 00:00:00'),
+(32, 8, 'Sepatu Cowok', 'Nyamana', 115000, -4, 0.8, 'CO6.jpg', '', '21,22,23,24', 20, '2019-07-10 00:00:00'),
+(33, 8, 'Sepatu Cowok', 'Nyaman', 125000, 4, 0.8, 'CO8.jpg', '', '21,22,23,24', 0, '2019-07-10 00:00:00'),
+(34, 12, 'Baju Atasan Cewek', 'Nyaman', 140000, 3, 0.8, 'BJCE1.jpg', '', 'S,M,L,XL', 20, '2019-07-10 00:00:00'),
 (37, 14, 'Celana Cowok', 'Nyaman		', 150000, 6, 0.8, 'CLO1.jpg', 'CLO5.jpg', 'S,M,L,XL', 0, '0000-00-00 00:00:00'),
 (38, 1, 'Baju Tidur Anak Perempuan', 'sdfcgvhbjnkml', 345678, 6, 0.8, 'Baju2.jpg', '', 'S,M,L,XL', 0, '2019-07-10 00:00:00'),
-(39, 11, 'Baju Cowok', 'Bagus', 1200000, 3, 0.5, 'baju9.jpg', 'baju10.jpg', 'S,M,L,XL', 0, '2019-07-23 00:00:00');
+(39, 11, 'Baju Cowok', 'Bagus', 1200000, -3, 0.5, 'baju9.jpg', 'baju10.jpg', 'S,M,L,XL', 0, '2019-07-23 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -484,7 +491,7 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
-  MODIFY `id_konfirmasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_konfirmasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `kota`
@@ -502,19 +509,19 @@ ALTER TABLE `kurirs`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `orders_temp`
 --
 ALTER TABLE `orders_temp`
-  MODIFY `id_order_temp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_order_temp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `id_order_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_order_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`

@@ -27,7 +27,7 @@
 					<table class="table table-bordered table-hover" id="dataTables-example" >
 						<thead >
 							<tr style="font-size: 15px;">
-								<th>ID</th>
+								<th>DETAIL</th>
 								<th>Tanggal Order</th>
 								<th>Alamat Pengiriman</th>
 								<th>Status Order</th>
@@ -78,7 +78,7 @@
 										{
 											$htmlButton = "
 													<button class='btn-warning btn disabled'>
-														<span class='glyphicon glyphicon-pencil'> Konfirmasi</span>
+														<span class='glyphicon glyphicon-pencil'>Menunggu Persetujuan</span>
 													</button>
 
 												<a href='hapuskonfirmasi.php?halaman=hapuskonfirmasi&id_order=
@@ -111,7 +111,9 @@
 
 echo <<<EOD
 										<tr>
-											<td>$orders[id_order]</td>
+											<td>
+												<a href='./order_detail.php?id_order=$orders[id_order]' target='_blank' class='btn btn-info btn-xs'> Detail </a>
+											</td>
 											<td>$orders[tgl_order]</td>
 											<td>$orders[alamat_pengirim]</td>
 											<td>$orders[status_order]</td>
@@ -120,11 +122,7 @@ echo <<<EOD
 											<td>$kurir[kurir]</td>
 											<td>$orders[resi]</td>
 											<td>
-
 												$htmlButton
-											
-												
-										
 											</td>
 										</tr>
 EOD;

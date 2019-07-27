@@ -23,7 +23,7 @@ $awalData = ($jumlahdataperhalaman * $halamanAktif) - $jumlahdataperhalaman;
 
 $orders = orders("SELECT * FROM orders JOIN pelanggan ON 
 	orders.kodepelanggan=pelanggan.kodepelanggan JOIN kota ON
-	orders.id_kota=kota.id_kota JOIN kurirs ON orders.kurir_id=kurirs.kurir_id LIMIT $awalData, $jumlahdataperhalaman" );
+	orders.id_kota=kota.id_kota JOIN kurirs ON orders.kurir_id=kurirs.kurir_id LIMIT $awalData, $jumlahdataperhalaman");
 
 
 
@@ -88,7 +88,7 @@ $orders = orders("SELECT * FROM orders JOIN pelanggan ON
 
 							
 							<?php $i = 1; ?>
-							<?php foreach ($orders as $ords): ?>
+							<?php foreach (array_reverse($orders) as $ords): ?>
 								<tr class="baris">
 									<td style="color: black"><?php echo $i; ?></td>
 									<td style="color: black"><?php echo $ords['id_order']; ?></td>

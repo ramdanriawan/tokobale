@@ -1,12 +1,8 @@
-<?php include_once('../_header.php'); ?>
+<?php include_once('../_header.php'); include_once "./functions.php"; ?>
 
 <?php 
-
-
-require 'functions.php'; 
-
 //pagination
-$jumlahdataperhalaman = 5;
+$jumlahdataperhalaman = 1;
 $jumlahData = count(subkategori("SELECT * FROM sub_kategori JOIN kategori ON 
 	sub_kategori.id_kategori=kategori.id_kategori
 	WHERE kategori.id_kategori = '$_GET[id_kategori]'"));

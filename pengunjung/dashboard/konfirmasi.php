@@ -72,7 +72,7 @@ if ($kodepelangganbeli !== $idorderbeli)
 
 				<div class="form-group">
 					<label>Rekeking Pengirim</label>
-					<input type="text" name="rek_pengirim" class="form-control" id="rek_pengirim">
+					<input type="number" name="rek_pengirim" class="form-control" id="rek_pengirim">
 				</div>
 
 				<div class="form-group">

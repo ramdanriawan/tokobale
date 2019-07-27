@@ -49,7 +49,7 @@ if(!isset($_SESSION))
 												<h6 style="text-align: center;"><a href="deskripsi.php?halaman=deskripsi&kodeproduk=<?php echo $perproduk["kodeproduk"]; ?>"><?php echo $perproduk["nama_produk"] ?></a><p><?php echo $perproduk["berat"]; ?>kg</p>	</h6>						
 											</div>
 											<div class="mid-2">
-												<h6 style="text-align: center; color: grey"><?php echo $perproduk["harga_produk"]; ?></h6>
+												<h6 style="text-align: center; color: grey"><?php echo toRupiah($perproduk["harga_produk"]); ?></h6>
 												<div class="block"></div>
 												<div class="clearfix"></div>
 											</div>
@@ -118,7 +118,7 @@ if(!isset($_SESSION))
   									<h6 style="text-align: center;"><a href="deskripsi.php?halaman=deskripsi&kodeproduk=<?php echo $perproduk["kodeproduk"]; ?>"><?php echo $perproduk["nama_produk"] ?></a><p><?php echo $perproduk["berat"]; ?>kg</p>	</h6>						
   								</div>
   								<div class="mid-2">
-  									<h6 style="text-align: center; color: grey"><?php echo $perproduk["harga_produk"]; ?></h6>
+  									<h6 style="text-align: center; color: grey"><?php echo toRupiah($perproduk["harga_produk"]); ?></h6>
   									<div class="block"></div>
   									<div class="clearfix"></div>
   								</div>

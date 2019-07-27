@@ -954,6 +954,24 @@ function selectWhere($columns, $table, $where)
 
 	return $data;
 }
+
+
+function decrement($table, $column, $decrement, $where)
+{
+	global $conn;
+	mysqli_query($conn, "UPDATE $table set $column = $column - $decrement WHERE $where");
+
+	return mysqli_affected_rows($conn);
+}
+
+function increment($table, $column, $decrement, $where)
+{
+	global $conn;
+	mysqli_query($conn, "UPDATE $table set $column = $column + $decrement WHERE $where");
+
+	return mysqli_affected_rows($conn);
+}
+
 ####################
 
 ?>
