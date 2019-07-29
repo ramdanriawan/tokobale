@@ -122,13 +122,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </a>
             </li>
 
-            <li class="<?php echo $_GET['halaman'] == "konfirmasipembayaran" ? "active" : ""; ?>">
+<!--             <li class="<?php echo $_GET['halaman'] == "konfirmasipembayaran" ? "active" : ""; ?>">
                 <a href="../dashboard/konfirmasipembayaran.php?halaman=konfirmasipembayaran">
                     <i class="fa fa-bullhorn"></i>
                     <span>Konfirmasi Pembayaran </span>
                 </a>
             </li>
-
+ -->
              <li  class="<?php echo $_GET['halaman'] == "laporan" ? "active" : ""; ?>">
                 <a href="../dashboard/laporan.php">
                     <i class="fa fa-bullhorn"></i>

@@ -8,10 +8,9 @@ $idorder = $_GET['id_order'];
 
 if (isset($_POST['submit'])) 
 {
-	$idorder =$_GET["id_order"];
-    $resi = $_POST["resi"];
 
-    if(check('orders', "resi='$resi'") > 0)
+
+    if(check('orders', "resi='$_POST[resi]' and id_order NOT IN('$idorder')") > 0)
     {
     	echo "
 			<script> 
@@ -23,28 +22,22 @@ if (isset($_POST['submit']))
 		return;
     }
 
-	$query = "INSERT INTO resi VALUES ('','$idorder','$resi')";
-
-	mysqli_query($conn, $query);
-
-
-	mysqli_query($conn, "UPDATE orders SET resi= '$resi'
-		WHERE id_order=$idorder");
+	update('orders', ['resi' => $_POST['resi']], "id_order='$idorder'");
 
 	if (mysqli_affected_rows($conn) > 0) 
 	{
 		echo "
 			<script> 
-				alert ('No Resi Telah Tersimpan');
+				alert ('No Resi Telah Terupdate');
 				document.location.href = 'orders.php?halaman=orders';
 			</script>
 		";
 	}else
 	{
-		echo mysqli_error($conn); die;
+		echo mysqli_error($conn);
 		echo "
 			<script> 
-				alert ('No Resi Tidak Tersimpan');
+				alert ('No Resi Tidak Terupdate');
 				document.location.href = 'orders.php?halaman=orders';
 			</script>
 		";
@@ -56,7 +49,7 @@ if (isset($_POST['submit']))
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Tambah No Resi</title>
+	<title>Ubah No Resi</title>
 
 	<style >
 	.title_ubah{
@@ -71,7 +64,7 @@ if (isset($_POST['submit']))
 </head>
 <body>
 
-	<h1 class="title_ubah">Tambah No Resi</h1><br>
+	<h1 class="title_ubah">Ubah No Resi</h1><br>
 
 	<form action="" method="post" name="myForm" onsubmit="return(validate(this))">
 
@@ -83,7 +76,7 @@ if (isset($_POST['submit']))
 			<input type="text" name="resi" class="form-control" id="resi">
 	</div>
 		
-	<button name="submit" class="btn btn-primary btn-block">Simpan</button>
+	<button name="submit" class="btn btn-primary btn-block">Update</button>
 	</form>
 
 </body>

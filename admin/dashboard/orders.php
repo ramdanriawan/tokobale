@@ -82,6 +82,12 @@ $orders = orders("SELECT * FROM orders JOIN pelanggan ON
 									<th>Status Terima</th>
 									<th>Kurir</th>
 									<th>Resi</th>
+									<th>Ongkir</th>
+									<th>Bank</th>
+									<th>Pengirim</th>
+									<th>Tgl Konfirmasi</th>
+									<th>Rek Pengirim</th>
+									<th>Bukti Transfer</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
@@ -101,15 +107,174 @@ $orders = orders("SELECT * FROM orders JOIN pelanggan ON
 									<td style="color: black"><?php echo $ords['status_terima']; ?></td>
 									<td style="color: black"><?php echo $ords['kurir']; ?></td>
 									<td style="color: black"><?php echo $ords['resi']; ?></td>
+									<td style="color: black"><?php echo $ords['ongkir']; ?></td>
+									<td style="color: black"><?php echo $ords['kode_bank']; ?></td>
+
+									<td style="color: black"><?php echo $ords['nama_pengirim']; ?></td>
+									<td style="color: black"><?php echo $ords['tgl_konfirmasi']; ?></td>
+									<td style="color: black"><?php echo $ords['rek_pengirim']; ?></td>
+									<td style="color: black">
+										<img id="myImg_<?php echo $ords['id_order']; ?>" src="../../buktipembayaran/<?= $ords["bukti_transfer"] ; ?>" style="width:100%;max-width:300px;">
+
+										<!-- The Modal -->
+										<div id="myModal_<?php echo $ords['id_order']; ?>" class="modal">
+
+										  <!-- Modal Caption (Image Text) -->
+										  <span id="caption_<?php echo $ords['id_order']; ?>" style="margin-bottom: -70px;">
+										  </span>
+
+										  <!-- The Close Button -->
+										  <span class="close">&times;</span>
+
+										  <!-- Modal Content (The Image) -->
+										  <img class="modal-content" id="img_<?php echo $ords['id_order']; ?>">
+
+										  <style type="text/css">
+										  	/* Style the Image Used to Trigger the Modal */
+#myImg_<?php echo $ords['id_order']; ?> {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#myImg_<?php echo $ords['id_order']; ?>:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption_<?php echo $ords['id_order']; ?> {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption_<?php echo $ords['id_order']; ?> { 
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+  from {transform:scale(0)} 
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+}
+
+										  </style>
+
+<script type="text/javascript">
+	// Get the modal
+var modal = document.getElementById("myModal_<?php echo $ords['id_order']; ?>");
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = document.getElementById("myImg_<?php echo $ords['id_order']; ?>");
+var modalImg = document.getElementById("img_<?php echo $ords['id_order']; ?>");
+var captionText = document.getElementById("caption_<?php echo $ords['id_order']; ?>");
+img.onclick = function(){
+  modal.style.display = "block";
+  modalImg.src = this.src;
+  captionText.innerHTML = "Tekan ESC untuk menutup";
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[<?php echo $j = $i - 1; ?>];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() { 
+  modal.style.display = "none";
+}
+
+$(document).keyup(function(e) {
+     if (e.key === "Escape") { // escape key maps to keycode `27`
+        $("#myModal_<?php echo $ords['id_order']; ?>").hide();
+    }
+});
+</script>
+										</div>
+									</td>
+
 									<td style="color: black">
 											<!-- <a href="index.php?halaman=hapusorder&id_order=<?php echo $ords['id_order'] ?>" class="btn-danger btn" onclick= "return confirm('apakah data order no= <?php echo $ords['id_order']; ?> ingin dihapus?')">
 											<span class="glyphicon glyphicon-trash">Hapus</span></a><br><br> -->
 											<!-- <a href="ubahorder.php?halaman=ubahorder&id_order=<?php echo $ords['id_order'] ?>" class="btn btn-warning">
 												<span class="glyphicon glyphicon-pencil">Ubah</span></a><br><br> -->
-												<a href="orders_detail.php?halaman=orders_detail&id=<?php echo $ords['id_order']; ?>">
-													<span class="btn btn-info">Detail</span></a><br><br>
-												<a href="tambahnoresi.php?halaman=tambahnoresi&id_order=<?php echo $ords['id_order']; ?>">
-													<span class="btn btn-info">Input Resi</span></a>				
+
+
+													<?php if($ords['resi'] != "" && $ords['status_terima'] == "Belum Diterima"): ?>
+														<a href="orders_detail.php?halaman=orders_detail&id=<?php echo $ords['id_order']; ?>">
+														<span class="btn btn-info">Detail</span></a><br><br>
+														<a href="ubahnoresi.php?id_order=<?php echo $ords['id_order']; ?>">
+															<span class="btn btn-info">Ubah Resi</span>
+														</a>
+
+
+													<?php elseif($ords['status_konfirmasi'] == "Menunggu Persetujuan"): ?>
+														<a href="./order_ubah_konfirmasi.php?id_order=<?= $ords['id_order']; ?>"class="btn btn-info" onclick="return confirm('setujui konfirmasi dari <?php echo $ords['id_order']; ?>')">
+															<span class="glyphicon glyphicon-ok text-white" style="color:  white;">Setujui Konfirmasi</span>
+														</a>
+														
+													<?php elseif($ords['status_konfirmasi'] == "Menunggu Konfirmasi"): ?>
+														<button class="btn btn-warning">
+															<span title="Belum Dikonfirmasi">Menunggu Konfirmasi</span>
+														</button>	
+
+													<?php elseif($ords['status_konfirmasi'] == "Disetujui"): ?>
+														<a href="orders_detail.php?halaman=orders_detail&id=<?php echo $ords['id_order']; ?>">
+														<span class="btn btn-info">Detail</span></a><br><br>
+														<a href="tambahnoresi.php?halaman=tambahnoresi&id_order=<?php echo $ords['id_order']; ?>">
+															<span class="btn btn-info">Input Resi</span>
+														</a>
+													<?php endif; ?>	
 												</td>
 											</tr>
 											<?php $i++; ?>

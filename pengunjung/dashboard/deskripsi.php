@@ -10,8 +10,13 @@ if(isset($_COOKIE['konfirmasiLogin']))
 <?php include_once('../_headerpenggunjung.php'); ?>
 
 <?php 
-
 $kodeproduk = $_GET['kodeproduk'];
+
+if(check("produk", "stok > 0 and kodeproduk=$kodeproduk") < 1)
+{
+	echo "<script>alert('Stok Barang Tersebut Kosong!'); location.href = '$_SERVER[HTTP_REFERER]'; </script>";
+	return;
+}
 
 $result = mysqli_query($conn, "SELECT * FROM produk WHERE kodeproduk=$kodeproduk");
 $ambil = mysqli_fetch_assoc($result);
@@ -71,7 +76,7 @@ $ambil = mysqli_fetch_assoc($result);
 							<div style="border: 1px solid black"></div><br>
 							<p class="product-description1"><h3 style="letter-spacing: 2px">DESKRIPSI :</h3><br><?php echo $ambil["deskripsi"]; ?></p><br>
 							<h3 class="price" style="letter-spacing: 2px">current price: <span>Rp.<?php echo $ambil["harga_produk"] ?></span></h3>
-							<h3 class="price" style="letter-spacing: 2px">Sizes: <span><?php echo $ambil["ukuran"]; ?></span></h3>
+							<h3 class="price" style="letter-spacing: 2px">Size: <span><?php echo $ambil["ukuran"]; ?></span></h3>
 							<h3 class="price" style="letter-spacing: 2px">Stok: <span><?php echo $ambil["stok"]; ?>
 						</span></h3><br>
 

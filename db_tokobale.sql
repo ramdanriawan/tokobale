@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 27, 2019 at 07:33 AM
+-- Generation Time: Jul 29, 2019 at 07:40 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.4
 
@@ -92,38 +92,6 @@ INSERT INTO `kategori` (`id_kategori`, `namakategori`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `konfirmasi`
---
-
-CREATE TABLE `konfirmasi` (
-  `id_konfirmasi` int(11) NOT NULL,
-  `id_order` int(11) NOT NULL,
-  `kodepelanggan` int(11) NOT NULL,
-  `kode_bank` int(11) NOT NULL,
-  `nama_penggirim` varchar(50) NOT NULL,
-  `rek_pengirim` varchar(50) NOT NULL,
-  `tgl_konfirmasi` date NOT NULL,
-  `bukti_transfer` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `konfirmasi`
---
-
-INSERT INTO `konfirmasi` (`id_konfirmasi`, `id_order`, `kodepelanggan`, `kode_bank`, `nama_penggirim`, `rek_pengirim`, `tgl_konfirmasi`, `bukti_transfer`) VALUES
-(1, 1, 12, 7, 'febby', '0834567890', '2019-07-24', 'Baju2.jpg'),
-(2, 2, 12, 7, 'ramdan riawan', '197652342312', '2019-07-24', 'Screenshot (2).png'),
-(3, 3, 12, 7, '12345678', '2345678', '2019-07-24', 'Screenshot (3).png'),
-(4, 3, 12, 7, 'sadada', 'sdfsf', '2019-07-24', 'Screenshot (3).png'),
-(5, 3, 12, 7, 'budiatmo', '773273737', '2019-07-24', 'Screenshot (2).png'),
-(6, 3, 12, 7, 'fjhhj', '32456', '2019-07-24', 'test foto identitas.png'),
-(7, 4, 12, 7, '12345678', '197652342312', '2019-07-24', 'Screenshot (3).png'),
-(8, 5, 12, 7, 'marijan', '082282692489', '2019-07-26', 'Screenshot (2).png'),
-(9, 6, 12, 7, 'gak jelas', '234234234', '2019-07-26', 'test foto identitas.png');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `kota`
 --
 
@@ -145,26 +113,6 @@ INSERT INTO `kota` (`id_kota`, `nama_kota`, `ongkir`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kurirs`
---
-
-CREATE TABLE `kurirs` (
-  `kurir_id` int(11) NOT NULL,
-  `kurir` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `kurirs`
---
-
-INSERT INTO `kurirs` (`kurir_id`, `kurir`) VALUES
-(1, 'JNE'),
-(2, 'JNT'),
-(4, 'TIKI');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `orders`
 --
 
@@ -179,20 +127,27 @@ CREATE TABLE `orders` (
   `status_terima` enum('Belum Diterima','Sudah Diterima') NOT NULL DEFAULT 'Belum Diterima',
   `kurir_id` int(11) NOT NULL,
   `resi` varchar(30) DEFAULT NULL,
-  `ongkir` int(11) DEFAULT NULL
+  `ongkir` int(11) DEFAULT NULL,
+  `kode_bank` int(11) NOT NULL,
+  `nama_pengirim` varchar(30) NOT NULL,
+  `rek_pengirim` varchar(20) NOT NULL,
+  `tgl_konfirmasi` date NOT NULL,
+  `bukti_transfer` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id_order`, `kodepelanggan`, `tgl_order`, `alamat_pengirim`, `id_kota`, `status_order`, `status_konfirmasi`, `status_terima`, `kurir_id`, `resi`, `ongkir`) VALUES
-(1, 12, '2019-07-24', 'serah', 4, 'Belum Dibayar', 'Disetujui', 'Sudah Diterima', 1, NULL, 29600),
-(2, 12, '2019-07-23', 'serah', 4, 'Sudah Dibayar', 'Disetujui', 'Sudah Diterima', 1, '33445566778899', 333000),
-(3, 12, '2019-07-24', 'serah', 4, 'Sudah Dibayar', 'Disetujui', 'Sudah Diterima', 1, NULL, 222000),
-(4, 12, '2019-07-24', 'serah', 4, 'Sudah Dibayar', 'Disetujui', 'Sudah Diterima', 1, '34343443', 148000),
-(5, 12, '2019-07-26', 'serah', 4, 'Sudah Dibayar', 'Disetujui', 'Sudah Diterima', 1, NULL, 111000),
-(6, 12, '2019-07-26', 'serah', 4, 'Sudah Dibayar', 'Disetujui', 'Belum Diterima', 2, NULL, 74000);
+INSERT INTO `orders` (`id_order`, `kodepelanggan`, `tgl_order`, `alamat_pengirim`, `id_kota`, `status_order`, `status_konfirmasi`, `status_terima`, `kurir_id`, `resi`, `ongkir`, `kode_bank`, `nama_pengirim`, `rek_pengirim`, `tgl_konfirmasi`, `bukti_transfer`) VALUES
+(1, 12, '2019-07-24', 'serah', 4, 'Sudah Dibayar', 'Disetujui', 'Belum Diterima', 1, '7055699', 29600, 7, 'btk', '563201026697530', '2019-07-29', 'Screenshot (2).png'),
+(2, 12, '2019-07-23', 'serah', 4, 'Sudah Dibayar', 'Disetujui', 'Belum Diterima', 1, '356536456456456456456', 333000, 7, '', '777777777', '2019-07-29', 'Screenshot (1).png'),
+(3, 12, '2019-07-24', 'serah', 4, 'Sudah Dibayar', 'Disetujui', 'Sudah Diterima', 1, 'sdfsfsdfsdfsdf', 222000, 0, '', '', '0000-00-00', ''),
+(4, 12, '2019-07-24', 'serah', 4, 'Sudah Dibayar', 'Disetujui', 'Sudah Diterima', 1, '34343443', 148000, 0, '', '', '0000-00-00', ''),
+(5, 12, '2019-07-26', 'serah', 4, 'Sudah Dibayar', 'Disetujui', 'Sudah Diterima', 1, NULL, 111000, 0, '', '', '0000-00-00', ''),
+(6, 12, '2019-07-26', 'serah', 4, 'Sudah Dibayar', 'Disetujui', 'Belum Diterima', 2, NULL, 74000, 0, '', '', '0000-00-00', ''),
+(7, 12, '2019-07-29', 'serah', 1, 'Belum Dibayar', 'Menunggu Konfirmasi', 'Belum Diterima', 0, NULL, 138000, 0, '', '', '0000-00-00', ''),
+(8, 12, '2019-07-29', 'serah', 4, 'Belum Dibayar', 'Menunggu Konfirmasi', 'Belum Diterima', 0, NULL, 259000, 0, '', '', '0000-00-00', '');
 
 -- --------------------------------------------------------
 
@@ -240,7 +195,10 @@ INSERT INTO `order_detail` (`id_order_detail`, `id_order`, `kodeproduk`, `size`,
 (7, 4, 22, 'S', 3, 90, 270),
 (8, 5, 39, 'M', 3, 1200000, 3600000),
 (9, 5, 39, 'XL', 3, 1200000, 3600000),
-(10, 6, 20, 'S', 2, 140000, 224000);
+(10, 6, 20, 'S', 2, 140000, 224000),
+(11, 7, 38, 'M', 3, 345678, 1037034),
+(12, 8, 38, 'M', 3, 345678, 1037034),
+(13, 8, 38, 'L', 5, 345678, 1728390);
 
 -- --------------------------------------------------------
 
@@ -326,7 +284,13 @@ CREATE TABLE `resi` (
 
 INSERT INTO `resi` (`resi_id`, `id_order`, `resi`) VALUES
 (1, 2, '33445566778899'),
-(2, 4, '34343443');
+(2, 4, '34343443'),
+(3, 2, '34343443'),
+(4, 1, '7055699'),
+(5, 4, '7055699'),
+(6, 3, '232352352'),
+(7, 4, '34343443'),
+(8, 3, 'sdfsfsdfsdfsdf');
 
 -- --------------------------------------------------------
 
@@ -394,24 +358,10 @@ ALTER TABLE `kategori`
   ADD PRIMARY KEY (`id_kategori`);
 
 --
--- Indexes for table `konfirmasi`
---
-ALTER TABLE `konfirmasi`
-  ADD PRIMARY KEY (`id_konfirmasi`),
-  ADD KEY `id_order` (`id_order`),
-  ADD KEY `kodepelanggan` (`kodepelanggan`);
-
---
 -- Indexes for table `kota`
 --
 ALTER TABLE `kota`
   ADD PRIMARY KEY (`id_kota`);
-
---
--- Indexes for table `kurirs`
---
-ALTER TABLE `kurirs`
-  ADD PRIMARY KEY (`kurir_id`);
 
 --
 -- Indexes for table `orders`
@@ -488,40 +438,28 @@ ALTER TABLE `kategori`
   MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `konfirmasi`
---
-ALTER TABLE `konfirmasi`
-  MODIFY `id_konfirmasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
 -- AUTO_INCREMENT for table `kota`
 --
 ALTER TABLE `kota`
   MODIFY `id_kota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `kurirs`
---
-ALTER TABLE `kurirs`
-  MODIFY `kurir_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `orders_temp`
 --
 ALTER TABLE `orders_temp`
-  MODIFY `id_order_temp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_order_temp` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `id_order_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_order_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
@@ -539,7 +477,7 @@ ALTER TABLE `produk`
 -- AUTO_INCREMENT for table `resi`
 --
 ALTER TABLE `resi`
-  MODIFY `resi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `resi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `sub_kategori`
@@ -556,13 +494,6 @@ ALTER TABLE `ulasan`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `konfirmasi`
---
-ALTER TABLE `konfirmasi`
-  ADD CONSTRAINT `konfirmasi_ibfk_1` FOREIGN KEY (`id_order`) REFERENCES `orders` (`id_order`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `konfirmasi_ibfk_2` FOREIGN KEY (`kodepelanggan`) REFERENCES `pelanggan` (`kodepelanggan`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `order_detail`

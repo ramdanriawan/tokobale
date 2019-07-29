@@ -50,8 +50,6 @@
 								<?php 
 									while($orders = mysqli_fetch_assoc($sqlOrders))
 									{
-										$sqlKurir = mysqli_query($conn, "SELECT * FROM kurirs where kurir_id='$orders[kurir_id]'");
-										$kurir = mysqli_fetch_assoc($sqlKurir);
 
 										if ($orders['status_terima'] == 'Sudah Diterima')
 										{
@@ -119,7 +117,7 @@ echo <<<EOD
 											<td>$orders[status_order]</td>
 											<td>$orders[status_konfirmasi]</td>
 											<td>$orders[status_terima]</td>
-											<td>$kurir[kurir]</td>
+											<td>JNE</td>
 											<td>$orders[resi]</td>
 											<td>
 												$htmlButton

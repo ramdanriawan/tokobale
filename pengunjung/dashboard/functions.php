@@ -221,5 +221,13 @@ function increment($table, $column, $decrement, $where)
 	return mysqli_affected_rows($conn);
 }
 
+
+function check($table, $where)
+{
+	global $conn;
+	$query = mysqli_query($conn, "select count(*) as count from $table WHERE $where");
+
+	return mysqli_fetch_assoc($query)['count'];
+}
 ####################
 ?>

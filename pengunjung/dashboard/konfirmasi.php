@@ -136,10 +136,14 @@ if (isset($_POST["submit"]) )
 	$rekpengirim = $_POST["rek_pengirim"];
 	$tanggal = date("Y-m-d");
 
-	mysqli_query($conn, "INSERT INTO konfirmasi(id_konfirmasi, id_order, kodepelanggan, kode_bank, nama_penggirim, rek_pengirim, tgl_konfirmasi, bukti_transfer)
-		VALUES ('', '$idorder', '$idorderbeli', '$kdbank', '$nmpeng', '$rekpengirim','$tanggal','$namafile')");
-
-	update('orders', ['status_konfirmasi' => 'Menunggu Persetujuan'], "id_order='$idorder'");
+	update('orders', [
+		'status_konfirmasi' => 'Menunggu Persetujuan',
+		'kode_bank' => $_POST['kode_bank'],
+		'nama_pengirim' => $_POST['nama_pengirim'],
+		'rek_pengirim' => $_POST['rek_pengirim'],
+		'tgl_konfirmasi' => $tanggal,
+		'bukti_transfer' => $namafile
+	], "id_order='$idorder'");
 
 	echo "<script>alert ('Terima Kasih Anda telah Melakukan Konfirmasi');</script>";
 	echo "<script>location='./pembelian.php';</script>";

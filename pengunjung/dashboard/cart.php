@@ -27,7 +27,7 @@ table tr th {
 }
 </style>
 
-<div class="container" style="margin: 20px 0;">
+<div class="container" style="margin: 20px 0; font-size: 17px;">
     <div class="row">
         <div class="col-md-12 col-sm-12 content">
             <div class="panel panel-info panel-shadow">
@@ -154,22 +154,22 @@ EOD;
                                                         $total_shipping_fee = $kotas['ongkir'];
                                                     }
 
-                                                    echo "<option value='$kotas[id_kota]' $selected class='form-control input-sm' data-ongkir='$kotas[ongkir]'>$kotas[nama_kota] (ongkir: " . toRupiah($kotas['ongkir']) . ")</option>";
+                                                    echo "<option value='$kotas[id_kota]' $selected class='form-control input-sm' data-ongkir='$kotas[ongkir]'>$kotas[nama_kota] (ongkir JNE: " . toRupiah($kotas['ongkir']) . ")</option>";
                                                 } ?>
                                             </select>
 
                                             <!-- select kurir -->
-                                            <select name="orders[kurir_id]" required>
+                                            <!-- <select name="orders[kurir_id]" required>
                                                 <option value="">- Pilih Kurir -</option>
                                                 <?php 
                                                 $resultKurir = mysqli_query($conn, "SELECT * FROM kurirs");
                                                 while ($kurirs = mysqli_fetch_assoc($resultKurir)) {
                                                     echo '<option value="'.$kurirs['kurir_id'].'">'.$kurirs['kurir'].'</option>';
                                                 } ?>
-                                            </select>
+                                            </select> -->
                                             <span>x </span>
-                                            <span id="shippingCount"><?php echo $total_berat; ?></span> KG 
-                                            <span>(Dibulatkan: <span id='diBulatkan'><?php echo ceil($total_berat); ?></span>) KG</span>
+                                            <span id="shippingCount"><?php echo $total_berat; ?></span>
+                                            <span>(<span id='diBulatkan'><?php echo round(ceil($total_berat), 1); ?></span> KG</span>)
                                             <span>=</span>
                                             <input type="hidden" name="orders[ongkir]" value="<?php echo $total_shipping_fee * ceil($total_berat); ?>" class="ongkir" >
                                             <span id="totalShippingCount"><?php echo toRupiah($total_shipping_fee * ceil($total_berat)); ?></span>
@@ -193,7 +193,7 @@ EOD;
                     <a href="./produk.php" class="btn btn-success"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Lanjutkan Belanja</a>
                         <!-- <a href="pembelian.php?halaman=pembelian&kodepelanggan=<?php echo $_COOKIE['id'];; ?>" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-chevron-right">Checkout</span></a> -->
 
-                        <button type="submit" class="btn btn-primary pull-right" <?php echo $total_semua_produk === 0 ? "disabled" : ""; ?>>
+                        <button type="submit" class="btn btn-primary pull-right" <?php echo $total_semua_produk === 0 ? "disabled" : ""; ?> onclick='return confirm("Yakin data barang dicart anda sudah benar?"); '>
                             <span class="glyphicon glyphicon-chevron-right"> Checkout</span>
                         </button>
                   
@@ -285,8 +285,8 @@ EOD;
 
                 }
 
-                $('#shippingCount').text(totalBerat.toFixed(3));
-                $('#diBulatkan').text(Math.ceil(totalBerat.toFixed(3)));
+                $('#shippingCount').text(totalBerat.toFixed(1));
+                $('#diBulatkan').text(Math.ceil(totalBerat.toFixed(1)));
 
                 var total = parseInt(rowHarga.data('harga')) * parseInt($(this).val())
                 rowTotal.text(toRupiah(total));
