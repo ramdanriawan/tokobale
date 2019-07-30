@@ -31,18 +31,20 @@ if (count($ambil2) > 0)
 		stok = '0'
 
 		WHERE kodeproduk = $kodeproduk AND kodepelanggan=$_COOKIE[id] AND size='$size'");
+
+		if(true)
+		{
+			header('Location: ' . $_SERVER['HTTP_REFERER']);
+		}
 }else {
 
 		mysqli_query($conn, "INSERT INTO orders_temp (id_order_temp, kodeproduk, kodepelanggan, jumlah, size, tgl_order, stok)
 		VALUES 
 		('', '$kodeproduk', $_COOKIE[id], '$jumlah', '$size', '$tggl_order', '')");
 
-}
-
 		if(mysqli_affected_rows($conn))
 		{
 			header('Location: ' . $_SERVER['HTTP_REFERER']);
 		}
-		die(mysqli_error($conn));
-
+}
 ?>

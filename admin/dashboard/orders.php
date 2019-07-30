@@ -1,3 +1,4 @@
+<?php error_reporting(0); ?>
 <?php include_once('../_header.php'); ?>
 
 <?php 
@@ -11,7 +12,7 @@ $jumlahdataperhalaman = 5;
 $jumlahData = count(orders("SELECT pelanggan.namapelanggan, orders.tgl_order, orders.alamat_pengirim,
 	kota.nama_kota, orders.status_order, orders.status_konfirmasi, orders.status_terima 
 	FROM orders JOIN pelanggan ON orders.kodepelanggan=pelanggan.kodepelanggan
-	JOIN kota ON orders.id_kota=kota.id_kota JOIN kurirs ON orders.kurir_id=kurirs.kurir_id "));
+	JOIN kota ON orders.id_kota=kota.id_kota"));
 
 
 $jumlahHalaman = ceil($jumlahData / $jumlahdataperhalaman);
@@ -23,7 +24,7 @@ $awalData = ($jumlahdataperhalaman * $halamanAktif) - $jumlahdataperhalaman;
 
 $orders = orders("SELECT * FROM orders JOIN pelanggan ON 
 	orders.kodepelanggan=pelanggan.kodepelanggan JOIN kota ON
-	orders.id_kota=kota.id_kota JOIN kurirs ON orders.kurir_id=kurirs.kurir_id LIMIT $awalData, $jumlahdataperhalaman");
+	orders.id_kota=kota.id_kota LIMIT $awalData, $jumlahdataperhalaman");
 
 
 
