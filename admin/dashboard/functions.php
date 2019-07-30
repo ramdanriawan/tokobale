@@ -1,5 +1,5 @@
 <?php 
-error_reporting();
+error_reporting(0);
 
 //htmlspecialchars = untuk menonaktifkan tag html 
 //strtolower = agar huruf pertama tetap kecil

@@ -4,8 +4,8 @@
 if(!isset($_COOKIE['namapelanggan']))
 {
 	setcookie('konfirmasiLogin', '0', time() + 5000);
-
-	echo "<script> window.location = '$_SERVER[HTTP_REFERER]'; </script>";
+	echo "<script> window.location = './login.php'; </script>";
+	return;
 }
 
 require 'functions.php';

@@ -112,7 +112,45 @@ $awalData = ($jumlahdataperhalaman * $halamanAktif) - $jumlahdataperhalaman;
 													<div class="clearfix"></div>
 												</div>
 												<div class="add">
-													<a href="deskripsi.php?halaman=deskripsi&kodeproduk=<?php echo $perproduk["kodeproduk"]; ?>" class="btn btn-info"><span class="">View More</span></a>
+													<form method="post" action="./addToCart.php">
+														<input type="hidden" name="kodeproduk" value="<?php echo $perproduk['kodeproduk'] ?>">
+
+															
+															<input type="hidden" name="jumlah" value="1">
+															<div class="btn btn-group">
+																<a href="deskripsi.php?halaman=deskripsi&kodeproduk=<?php echo $perproduk["kodeproduk"]; ?>" class="btn btn-info">
+																	<span class="glyphicon glyphicon-eye-open"></span>
+																</a>
+																<?php
+																	if( $perproduk['stok'] < 1 )
+																	{
+																		echo '
+																		<button class="btn btn-secondary" type="button">
+																			Stok Kosong
+																		</button>';
+																	}
+																	else
+																	{
+																		echo '<button class="btn btn-warning" type="submit">
+																			<span class="glyphicon glyphicon-shopping-cart"></span>
+																		</button>';
+
+																		echo '<select name="size" class="btn" required style="display: block;">';
+
+																		$sizes = explode(',', $perproduk['ukuran']);
+																		foreach ($sizes as $key => $size) 
+																		{
+																			echo "<option value='{$size}'>$size</option>";
+																		}
+
+																		echo "</select>";
+
+																	}
+																 ?>
+																
+															</div>
+
+												</form>
 												</div>
 											</div>
 										</div>

@@ -30,6 +30,19 @@ if (isset($_GET['start_date']) && isset($_GET['end_date']))
 
 ?>
 
+
+<style type="text/css">
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+td.no_border {
+    border: 1px solid white;
+    border-top: none;
+}
+</style>
+
 <div style="border: 2px dotted black; border-radius: 5px;">
 	<div style="text-align: center;">
 		<strong>Toko Bale</strong> <br>
@@ -43,6 +56,7 @@ if (isset($_GET['start_date']) && isset($_GET['end_date']))
 		<table>
 			<thead>
 				<tr style="background-color: #ccc">
+					<th>No. </th>
 					<th>Nama Produk</th>
 					<th>Size</th>
 					<th>Jumlah</th>
@@ -55,6 +69,7 @@ if (isset($_GET['start_date']) && isset($_GET['end_date']))
 			<?php 
 			$jumlah = 0;
 			$totalHargaSemua = 0;
+			$i = 1;
 			foreach ($orders_detail as $order_detail)
 			{
 				foreach ($order_detail as $order_detail2)
@@ -67,6 +82,7 @@ if (isset($_GET['start_date']) && isset($_GET['end_date']))
 
 	echo "
 					<tr>
+						<td style='text-align: center;'>{$i}</td>
 						<td>{$produk[0]['nama_produk']}</td>
 						<td>{$order_detail2['size']}</td>
 						<td>{$order_detail2['jumlah']}</td>
@@ -74,7 +90,8 @@ if (isset($_GET['start_date']) && isset($_GET['end_date']))
 						<td>{$produk[0]['diskon']}%</td>
 						<td>" . toRupiah($totalHarga) . "</td>
 					</tr>
-	";	
+	";	$i++;
+
 				}
 
 			}
@@ -86,12 +103,13 @@ if (isset($_GET['start_date']) && isset($_GET['end_date']))
 					<td><?php echo $jumlah; ?></td>
 					<td></td>
 					<td></td>
+					<td></td>
 					<td><?php echo toRupiah($totalHargaSemua); ?></td>
 				</tr>
 			</tbody>
-			<tfoot>
+			<tfoot style="border: none;">
 				<tr style="padding-top: 50px;">
-					<td>
+					<td class="no_border">
 						<span style="margin-bottom: -120px; display: inline-block;">Jambi, <?php echo date('d-m-Y'); ?></span><br>
 						<img src="../../images/tanda_tangan.png" with="100" height="100" style="margin-left: -50px; margin-bottom: -20px;"><br>
 						<span style="margin-top: -5px; display: inline-block;">Febby Febriana</span>
@@ -101,8 +119,10 @@ if (isset($_GET['start_date']) && isset($_GET['end_date']))
 		</table>
 	</center>
 </div>
-
+<script type="text/javascript" src="../../admin/js/jquery.min.js"></script>
 <script type="text/javascript">
-	// window.print();
-	// window.close();
+	$(document).ready(function(){
+		window.print();
+		window.close();
+	});
 </script>

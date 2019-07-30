@@ -4,6 +4,10 @@
 session_start();
 require 'functions.php';
 
+if(isset($_COOKIE['konfirmasiLogin']))
+{
+	echo "<script> alert('Kamu harus login terlebih dahulu!'); </script>";
+}
 
 if (isset($_POST["login"])) 
 {

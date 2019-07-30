@@ -94,7 +94,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </a>
             </li>
             <li class="sub-menu">
-                <a href="#" class="<?php echo isset($_GET['halaman']) && $_GET['halaman'] != "orders" && $_GET['halaman'] != "konfirmasipembayaran" ? "active" : "";  ?>">
+                <a href="#" class="<?php echo isset($_GET['halaman']) && $_GET['halaman'] != "orders" && $_GET['halaman'] != "laporanPenjualan" && $_GET['halaman'] != "laporanProduk" && $_GET['halaman'] != "laporanPelanggan"  ? "active" : "";  ?>">
                     <i class="fa fa-th"></i>
                     <span>Data Master</span>
                 </a>
@@ -129,12 +129,37 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </a>
             </li>
  -->
-             <li  class="<?php echo $_GET['halaman'] == "laporan" ? "active" : ""; ?>">
-                <a href="../dashboard/laporan.php">
-                    <i class="fa fa-bullhorn"></i>
-                    <span>Laporan </span>
+            <li class="sub-menu">
+                <a href="#" class="<?php echo isset($_GET['halaman']) && $_GET['halaman'] != "orders" ? "active" : "";  ?>">
+                    <i class="fa fa-th"></i>
+                    <span>Data Laporan</span>
                 </a>
+                <ul class="sub">
+                     <li  class="<?php echo $_GET['halaman'] == "laporanPenjualan" ? "active" : ""; ?>">
+                        <a href="../dashboard/laporanPenjualan.php?halaman=laporanPenjualan">
+                            <i class="fa fa-bullhorn"></i>
+                            <span>Laporan Penjualan</span>
+                        </a>
+                    </li>
+
+                     <li  class="<?php echo $_GET['halaman'] == "laporanProduk" ? "active" : ""; ?>">
+                        <a href="../dashboard/laporanProduk.php?halaman=laporanProduk">
+                            <i class="fa fa-bullhorn"></i>
+                            <span>Laporan Produk</span>
+                        </a>
+                    </li>
+
+                     <li  class="<?php echo $_GET['halaman'] == "laporanPelanggan" ? "active" : ""; ?>">
+                        <a href="../dashboard/laporanPelanggan.php?halaman=laporanPelanggan">
+                            <i class="fa fa-bullhorn"></i>
+                            <span>Laporan Pelanggan</span>
+                        </a>
+                    </li>
+
+
+                </ul>
             </li>
+
             <?php endif; ?>
               
            

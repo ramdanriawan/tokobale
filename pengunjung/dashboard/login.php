@@ -1,6 +1,12 @@
-
 <?php 
 session_start();
+
+if(isset($_COOKIE['konfirmasiLogin']))
+{
+	echo "<script>alert('Kamu harus login untuk melakukan pembelian barang'); </script>";
+
+	setcookie('konfirmasiLogin', '0', time() - 1);
+}
 
 //koneksi kedatabase
 $conn = mysqli_connect("localhost", "root", "", "db_tokobale");

@@ -9,8 +9,9 @@ setcookie('kodepelanggan', '', time() - 1);
 setcookie('key', '', time() - 1);
 setcookie('id', '', time() - 1);
 setcookie('namapelanggan', '', time() - 1);
+setcookie('konfirmasiLogin', '', time() - 1);
 
-header("Location: login.php");
+header("Location: ./login.php");
 exit;
 
 

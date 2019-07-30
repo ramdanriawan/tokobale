@@ -1,12 +1,3 @@
-<?php 
-if(isset($_COOKIE['konfirmasiLogin']))
-{
-	echo "<script>alert('Kamu harus login untuk melakukan pembelian barang'); </script>";
-
-	setcookie('konfirmasiLogin', '0', time() - 1);
-}
-?>
-
 <?php include_once('../_headerpenggunjung.php'); ?>
 
 <?php 
